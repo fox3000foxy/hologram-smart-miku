@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "japanese": "これは本です。",
+    "translation": "Ceci est un livre.",
+	"type":"bullshit"
+  },
+  {
+    "id": 2,
+    "japanese": "私は学生です。",
+    "translation": "Je suis étudiant.",
+	"type":"bullshit"
+  },
+  {
+    "id": 3,
+    "japanese": "あなたの名前は何ですか？",
+    "translation": "Quel est ton nom ?",
+	"type":"bullshit"
+  },
+  {
+    "id": 4,
+    "japanese": "今日はいい天気です。",
+    "translation": "Il fait beau aujourd'hui.",
+	"type":"bullshit"
+  },
+  {
+    "id": 5,
+    "japanese": "犬が好きです。",
+    "translation": "J'aime les chiens.",
+	"type":"bullshit"
+  },
+  {
+    "id": 6,
+    "japanese": "水をください。",
+    "translation": "Veuillez me donner de l'eau.",
+	"type":"bullshit"
+  },
+  {
+    "id": 7,
+    "japanese": "昨日映画を見ました。",
+    "translation": "J'ai regardé un film hier.",
+	"type":"bullshit"
+  },
+  {
+    "id": 8,
+    "japanese": "学校に行きます。",
+    "translation": "Je vais à l'école.",
+	"type":"bullshit"
+  },
+  {
+    "id": 9,
+    "japanese": "りんごが三つあります。",
+    "translation": "Il y a trois pommes.",
+	"type":"bullshit"
+  },
+  {
+    "id": 10,
+    "japanese": "彼は日本語を話します。",
+    "translation": "Il parle japonais.",
+	"type":"bullshit"
+  }
+]

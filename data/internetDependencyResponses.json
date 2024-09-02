@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "reply": "Je ne peux pas répondre à cette question sans Internet !",
+    "hiragana_form": "インターネットがなければこの質問には答えられません。",
+    "type": "noInternet"
+  },
+  {
+    "id": 2,
+    "reply": "Désolé, mais sans accès à Internet, je suis dans l'incapacité de te fournir une réponse précise.",
+    "hiragana_form": "申し訳ありませんが、インターネットにアクセスできないため、正確な答えを提供できません。",
+    "type": "noInternet"
+  },
+  {
+    "id": 3,
+    "reply": "Oups ! Il me faudrait une connexion Internet pour pouvoir te répondre.",
+    "hiragana_form": "おっと！お答えするにはインターネット接続が必要です。",
+    "type": "noInternet"
+  },
+  {
+    "id": 4,
+    "reply": "Malheureusement, je n'ai pas cette information en mémoire et j'aurais besoin d'Internet pour la trouver.",
+    "hiragana_form": "残念ながら、その情報は覚えていませんので、探すためにはインターネットが必要です。",
+    "type": "noInternet"
+  },
+  {
+    "id": 5,
+    "reply": "Sans Internet, je suis un peu limité. Je ne peux pas répondre à cette question pour le moment.",
+    "hiragana_form": "インターネットがないと、ちょっと制限されています。今はその質問に答えられません。",
+    "type": "noInternet"
+  },
+  {
+    "id": 6,
+    "reply": "Je suis navré, mais là, je nécessite une connexion Internet pour pouvoir répondre à cette requête.",
+    "hiragana_form": "申し訳ないのですが、今はこのリクエストに答えるためにインターネット接続が必要です。",
+    "type": "noInternet"
+  },
+  {
+    "id": 7,
+    "reply": "Ma base de connaissances locale ne contient pas cette information. J'aurais besoin d'Internet pour la rechercher.",
+    "hiragana_form": "私のローカルの知識ベースにはこの情報が含まれていません。調べるにはインターネットが必要です。",
+    "type": "noInternet"
+  },
+  {
+    "id": 8,
+    "reply": "Je donnerais cher pour avoir une connexion Internet là maintenant.",
+    "hiragana_form": "今すぐインターネット接続が欲しいところです。",
+    "type": "noInternet"
+  }
+]

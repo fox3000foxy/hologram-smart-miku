@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "japanese": "はい？",
+    "translation": "Oui ?"
+  },
+  {
+    "id": 2,
+    "japanese": "お呼びですか？",
+    "translation": "Tu m'as appelé ?"
+  },
+  {
+    "id": 3,
+    "japanese": "どうしましたか？",
+    "translation": "Que puis-je faire pour toi ?"
+  },
+  {
+    "id": 4,
+    "japanese": "何かお手伝いしましょうか？",
+    "translation": "Puis-je t'aider avec quelque chose ?"
+  },
+  {
+    "id": 5,
+    "japanese": "ご用でしょうか？",
+    "translation": "Avez-vous besoin de quelque chose ?"
+  }
+]
