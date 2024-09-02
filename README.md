@@ -23,6 +23,7 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 - Le projet [datenhahn/python-aiml-chatbot](https://github.com/datenhahn/python-aiml-chatbot/) pour les données AIML.
 - Le projet [gleuch/aiml-high](https://github.com/gleuch/aiml-high) pour l'interpréteur AIML NodeJS.
 - L'API projet [herc.ai](https://github.com/) pour l'interpréteur AIML NodeJS.
+- `ad` pour le [modèle 3d de Miku](https://hub.vroid.com/en/characters/6393831588053029732/models/292088747503985726).
 
 # License
 MIT
