@@ -19,6 +19,7 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 - Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.
 - Optimiser le code via des standards et remplacer les textes en brut par des constantes
 - Rajouter la reconnaissance vocale continue persistante (elle est censée marcher mais ne marche pas :\)
+- Prévoir des API du genre "météo, news, iot, etc..."
 
 # Crédits
 - [https://voicevox.hiroshiba.jp/](https://voicevox.hiroshiba.jp/) pour les fichiers audios.
