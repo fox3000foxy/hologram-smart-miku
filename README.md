@@ -19,7 +19,7 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 
 # Crédits
 - [https://voicevox.hiroshiba.jp/](https://voicevox.hiroshiba.jp/) pour les fichiers audios.
-- La voix de [春日部つむぎ 利用規約 (Kasube Tsumugi)](https://voicevox.hiroshiba.jp/product/kasukabe_tsumugi/) ([Conditions d'utilsiations](https://tsumugi-official.studio.site/rule)).
+- La voix de [春日部つむぎ 利用規約 (Kasube Tsumugi)](https://voicevox.hiroshiba.jp/product/kasukabe_tsumugi/) ([Conditions d'utilisations](https://tsumugi-official.studio.site/rule)).
 - Le projet [datenhahn/python-aiml-chatbot](https://github.com/datenhahn/python-aiml-chatbot/) pour les données AIML.
 - Le projet [gleuch/aiml-high](https://github.com/gleuch/aiml-high) pour l'interpréteur AIML NodeJS.
 - L'API projet [herc.ai](https://github.com/) pour l'interpréteur AIML NodeJS.
