@@ -14,7 +14,7 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 
 # TODO
 - Refactoriser le code en Typescript.
-- Voir les traduction des phrases de réveil à la place de "Réveil...".
+- Voir les traductions des phrases de réveil à la place de "Réveil...".
 - Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.
 
 # Crédits
