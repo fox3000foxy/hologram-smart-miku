@@ -4,6 +4,8 @@ import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { loadMixamoAnimation } from './loadMixamoAnimation.js';
 import GUI from 'three/addons/libs/lil-gui.module.min.js';
 
+const PYRAMID_MODE = true;
+
 // Constantes pour les conditions
 const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku"];
 const GOODBYE_PHRASES = ["au revoir miku", "au revoir micou", "au revoir mikou"];
@@ -24,17 +26,20 @@ globalRecognizer.interimResults = true;
 
 // Fonction pour démarrer la reconnaissance de la phrase de réveil
 function startWakeupRecognition() {
-	loadFBX("/animations/Idle2.fbx");
-    playAudio("welcome", () => playAnimationOnce("WavingGesture"));
-
-    wakeupRecognizer.start();
-    lyricsElement.innerHTML = "<i>Dites 'Hey Miku' pour commencer</i>";
+	lyricsElement.innerHTML = "<i>Miku vous salue</i>";
+    playAnimation("WavingGesture")
+	playAudio("welcome", ()=>{}, () => {
+		wakeupRecognizer.start();
+		lyricsElement.innerHTML = "<i>Dites 'Hey Miku' pour commencer</i>";
+		playAnimation("Idle2");
+	});
 }
 
 wakeupRecognizer.onresult = function(event) {
     for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript.toLowerCase().trim().replace("nico", "miku");
         if (event.results[i].isFinal) {
+			console.log(transcript);
             if (WAKEUP_PHRASES.some(phrase => transcript.includes(phrase))) {
                 wakeupRecognizer.stop();
                 wakeMiku();
@@ -104,7 +109,39 @@ let currentVrm, currentAnimationUrl, currentMixer, currentAnimation;
 const helperRoot = new THREE.Group();
 helperRoot.renderOrder = 10000;
 
-function loadVRM(modelUrl) {
+let vrms = []; // Tableau pour stocker les 4 modèles VRM
+let mixers = []; // Tableau pour stocker les 4 mixers
+let positions = [];
+let rotations = [];
+if(PYRAMID_MODE) {		
+	positions = [
+		{ x: 0.0, y: 0.5, z: -5.0 }, // Modèle inversé en Z
+		{ x: 0.0, y: 1.5, z: -5.0 }, // Position centrale
+		{ x: 1.5, y: 1.0, z: -5.0 }, // Modèle à gauche
+		{ x: -1.5, y: 1.0, z: -5.0 }  // Modèle à droite
+	];
+
+	rotations = [
+		{ x: 0.0, y: 0.0, z: Math.PI },        // Rotation centrale
+		{ x: Math.PI, y: Math.PI, z: Math.PI },    // Modèle inversé
+		{ x: Math.PI / 2 , y: 0.0, z: Math.PI / 2 }, // Rotation vers la gauche
+		{ x: Math.PI / 2, y: 0.0, z: Math.PI / 2 + Math.PI } // Rotation vers la droite
+	];
+	
+	lyricsElement.style.display = "none";
+}
+else {
+	positions = [
+		{ x: 0.0, y: 0.0, z: 0.0 }
+	]
+	
+	
+	rotations = [
+		{ x: 0.0, y: 0.0, z: 0.0 }
+	]
+}
+
+function loadVRM(modelUrl,i,cb=(()=>{})) {
     const loader = new GLTFLoader();
     loader.crossOrigin = 'anonymous';
 
@@ -118,61 +155,79 @@ function loadVRM(modelUrl) {
         modelUrl,
         (gltf) => {
             const vrm = gltf.userData.vrm;
-
-            if (currentVrm) {
-                scene.remove(currentVrm.scene);
-                VRMUtils.deepDispose(currentVrm.scene);
-            }
-
-            currentVrm = vrm;
+			
+			vrms.push(vrm);
+			vrm.scene.position.set(positions[i].x, positions[i].y, positions[i].z);
+			vrm.scene.rotation.set(rotations[i].x, rotations[i].y, rotations[i].z);
             scene.add(vrm.scene);
 
             vrm.scene.traverse((obj) => {
                 obj.frustumCulled = false;
             });
 
-            if (currentAnimationUrl) {
-                loadFBX(currentAnimationUrl);
-            }
-
-            VRMUtils.rotateVRM0(vrm);
-			playAnimation("Idle2");
+			VRMUtils.rotateVRM0(vrm);
 			window.onclick = () => {
 				lyricsElement.innerText = "";
 				startWakeupRecognition();
 				window.onclick = () => {};
 			};
+			
+			cb();
         },
-        (progress) => console.log(`Loading model... ${(100.0 * progress.loaded / progress.total).toFixed(2)}%`),
+        (progress) => {
+			let percent = (100.0 * progress.loaded / progress.total).toFixed(2);
+			console.log(`Loading model... ${percent}%`);
+		},
         (error) => console.error(`Error loading model: ${error}`),
     );
 }
 
-loadVRM(defaultModelUrl);
+for (let i in positions) {
+	if(i == positions.length - 1) {
+		loadVRM(defaultModelUrl,i,()=>{
+			setTimeout(()=>{
+				playAnimation("Idle2");				
+			},100)
+		});		
+	}
+	else {
+		loadVRM(defaultModelUrl,i);		
+	}
+}
+
 
 function loadFBX(animationUrl, cbLoad = () => {}, cbPlay = () => {}) {
     currentAnimationUrl = animationUrl;
-    currentMixer = new THREE.AnimationMixer(currentVrm.scene);
+	for(let vrm of vrms) {
+		let mixer = new THREE.AnimationMixer(vrm.scene);
 
-    loadMixamoAnimation(animationUrl, currentVrm).then((clip) => {
-        currentMixer.clipAction(clip).play();
-        cbLoad();
-        currentMixer.addEventListener('loop', cbPlay);
-        currentMixer.timeScale = 0.75;
-    });
+		loadMixamoAnimation(animationUrl, vrm).then((clip) => {
+			mixer.clipAction(clip).play();
+			cbLoad();
+			mixer.addEventListener('loop', cbPlay);				
+			mixer.timeScale = 0.75;
+		});
+		
+		mixers.push(mixer);
+	}
 }
 
 // Boucle d'animation
 const clock = new THREE.Clock();
 function animate() {
     requestAnimationFrame(animate);
+	// setTimeout(animate,50)
 
     const deltaTime = clock.getDelta();
-    if (currentMixer) {
-        currentMixer.update(deltaTime);
+    if (mixers) {
+        mixers.forEach(mixer=>{
+			mixer.update(deltaTime);
+		})
     }
-    if (currentVrm) {
-        currentVrm.update(deltaTime);
+    if (vrms) {
+		vrms.forEach(vrm=>{
+			vrm.update(deltaTime);
+		})
     }
 
     renderer.render(scene, camera);
@@ -185,12 +240,6 @@ function playAnimation(name) {
         loadFBX(`/animations/${name}.fbx`);
         currentAnimation = name;
     }
-}
-
-function playAnimationOnce(name) {
-    loadFBX("/animations/Idle2.fbx", () => {
-        loadFBX(`/animations/${name}.fbx`, () => {}, () => loadFBX("/animations/Idle2.fbx"));
-    });
 }
 
 async function askAI(question) {
@@ -211,6 +260,7 @@ async function askAIOffline(question) {
     return response.json();
 }
 
+/** Deprecated: inexisting endpoint */
 async function speechSynthesis(text, cbPlay, cbStop) {
     const audio = new Audio();
     try {
