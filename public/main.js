@@ -18,12 +18,6 @@ const globalRecognizer = new webkitSpeechRecognition();
 globalRecognizer.continuous = true;
 globalRecognizer.interimResults = true;
 
-window.onclick = () => {
-    lyricsElement.innerText = "";
-    startWakeupRecognition();
-    window.onclick = () => {};
-};
-
 // Fonction pour démarrer la reconnaissance de la phrase de réveil
 function startWakeupRecognition() {
 	loadFBX("/animations/Idle2.fbx");
@@ -39,10 +33,10 @@ wakeupRecognizer.onresult = function(event) {
         if (event.results[i].isFinal) {
 			// console.log(transcript.toLowerCase().trim())
             if (
-				transcript.toLowerCase().trim().includes("hey miku") || 
-				transcript.toLowerCase().trim().includes("hey micou") || 
-				transcript.toLowerCase().trim().includes("hey mikou") || 
-				transcript.toLowerCase().trim().includes("et miku") 
+				transcript.toLowerCase().trim().replace("nico","miku").includes("hey miku") || 
+				transcript.toLowerCase().trim().replace("nico","miku").includes("hey micou") || 
+				transcript.toLowerCase().trim().replace("nico","miku").includes("hey mikou") || 
+				transcript.toLowerCase().trim().replace("nico","miku").includes("et miku") 
 			) {
                 wakeupRecognizer.stop();
                 wakeMiku();
@@ -54,7 +48,7 @@ wakeupRecognizer.onresult = function(event) {
 // Fonction pour jouer un son de réveil et démarrer la reconnaissance globale
 async function wakeMiku() {
     lyricsElement.innerHTML = "<i>Réveil...</i>";
-    await playAudio(`wakeup${Math.floor(Math.random() * 8)}`, () => {}, startGlobalRecognition);
+    await playAudio(`wakeup${Math.floor(Math.random() * 4) + 1}`, () => {}, startGlobalRecognition);
 }
 
 // Fonction pour démarrer la reconnaissance globale
@@ -149,6 +143,11 @@ function loadVRM(modelUrl) {
 
             VRMUtils.rotateVRM0(vrm);
 			playAnimation("Idle2");
+			window.onclick = () => {
+				lyricsElement.innerText = "";
+				startWakeupRecognition();
+				window.onclick = () => {};
+			};
         },
         (progress) => console.log(`Loading model... ${(100.0 * progress.loaded / progress.total).toFixed(2)}%`),
         (error) => console.error(`Error loading model: ${error}`),
