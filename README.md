@@ -27,7 +27,7 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 
 Il existe le mode pyramide: <br>
 ![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)<br>
-Le mode pyramide permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu 360 degrés de notre assistante.
+Le mode pyramide permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu à 360 degrés de notre assistante.
 
 # TODO
 - Refactoriser le code en Typescript.
