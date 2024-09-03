@@ -13,6 +13,10 @@ Comprend une IA hors ligne, qui est un chatbot AIML conditionné pour se comport
 Fait parti d'un projet avec un hologramme inspiré de [cette vidéo](https://www.youtube.com/watch?v=P09TWAMLhE4).
 L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Alexa.
 
+Il existe le mode pyramide: 
+![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)
+Le mode pyramide permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu 360 degréé de notre assistante.
+
 # TODO
 - Refactoriser le code en Typescript.
 - Voir les traductions des phrases de réveil à la place de "Réveil...".
