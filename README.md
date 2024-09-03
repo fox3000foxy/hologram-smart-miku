@@ -24,6 +24,12 @@ Le mode pyramide permet, à l'aide d'une pyramide de plexiglass, de pouvoir proj
 ~~- Optimiser le code via des standards et remplacer les textes en brut par des constantes~~
 - Rajouter la reconnaissance vocale continue persistante (elle est censée marcher mais ne marche pas :\)
 - Prévoir des API du genre "météo, news, iot, etc..."
+- Créer un système de cache pour les API précédentes: <br>
+  - Pour la météo: récupérer les données GPS (facultatif), conserver dans un fichier "cache" la météo heure par heure, et en fonction de l'heure, donner la météo
+  - Pour les news: garder en cache certaines news, et demander à l'IA de pouvoir en faire des synthèses pour pouvoir garder des news concises
+  - Pour l'IOT: mettre en place un système de routage LAN pour les équipements et appareils connectés
+  - Pour le reste: récupérer régulièrement les données (toutes les 15 minutes), les stocker dans un fichier cache dédié, et si hors ligne, renvoyer le cache, sinon, renvoyer la donnée récupérée à l'instant T    
+
 
 # Crédits
 - [https://voicevox.hiroshiba.jp/](https://voicevox.hiroshiba.jp/) pour les fichiers audios.
