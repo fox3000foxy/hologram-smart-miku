@@ -4,6 +4,7 @@ const { Readable } = require("stream");
 const aimlHigh = require('./aiml-high');
 const fs = require('fs');
 const { Hercai } = require('hercai');
+process.env = {...process.env, ...require('dotenv').config().parsed}
 
 // Constants
 const PORT = 3000;
@@ -11,7 +12,7 @@ const PUBLIC_DIR = __dirname + '/public';
 const INDEX_FILE = `${PUBLIC_DIR}/index.html`;
 const DATA_DIR = './data';
 const AIML_RESPONSE_LIMIT = 7;
-const HERC_API_KEY = "F8f3+HpW4Gn0NcCpsdTQbhzWfcwBbR0ID34TKqOy3g="; // Replace with your actual API key
+const HERC_API_KEY = process.env.HERC_API_KEY; // Replace with your actual API key
 
 // API and Data Paths
 const INTERNET_DEPENDENCY_RESPONSES_PATH = `${DATA_DIR}/internetDependencyResponses.json`;
@@ -108,6 +109,13 @@ app.post('/mikuAi', async (req, res) => {
     }
 });
 
+//Weather API
+async function getMeteo(location) {	
+	const url = `https://wttr.in/${location}?format=j1`;
+	return await fetch(url).then(response => response.json());
+}
+
+
 app.post('/mikuAi-offline', async (req, res) => {
     const content = req.body?.content;
     if (!content) {
@@ -159,3 +167,26 @@ app.use(express.static(PUBLIC_DIR));
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+
+/** Caches daemons */
+//Weather cache
+async function weatherDaemon(){	
+	let data = await getMeteo(process.env.CITY)
+	fs.writeFileSync("./cache/weather.json", JSON.stringify(data.weather));
+}
+
+//Daemons every hour
+function executeDaemons() {
+	require('dns').resolve('www.google.com', async (err) => {
+        if(!err) {
+			await weatherDaemon()			
+		}
+    });
+}
+setInterval(executeDaemons, 60 * 60 * 1000)
+
+//First launch
+// executeDaemons()
+
+
