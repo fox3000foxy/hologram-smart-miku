@@ -115,8 +115,8 @@ let positions = [];
 let rotations = [];
 if(PYRAMID_MODE) {		
 	positions = [
-		{ x: 0.0, y: 0.5, z: -5.0 }, // Modèle inversé en Z
-		{ x: 0.0, y: 1.5, z: -5.0 }, // Position centrale
+		{ x: -0.05, y: 0.6, z: -5.0 }, // Modèle inversé en Z
+		{ x: -0.05, y: 1.4, z: -5.0 }, // Position centrale
 		{ x: 1.5, y: 1.0, z: -5.0 }, // Modèle à gauche
 		{ x: -1.5, y: 1.0, z: -5.0 }  // Modèle à droite
 	];
