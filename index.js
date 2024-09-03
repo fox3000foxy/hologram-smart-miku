@@ -3,20 +3,27 @@ const bodyParser = require("body-parser");
 const { Readable } = require("stream");
 const aimlHigh = require('./aiml-high');
 const fs = require('fs');
-const { Hercai } = require('hercai'); 
+const { Hercai } = require('hercai');
 
 // Constants
 const PORT = 3000;
 const PUBLIC_DIR = __dirname + '/public';
-const INDEX_FILE = PUBLIC_DIR + '/index.html';
+const INDEX_FILE = `${PUBLIC_DIR}/index.html`;
 const DATA_DIR = './data';
 const AIML_RESPONSE_LIMIT = 7;
 const HERC_API_KEY = "F8f3+HpW4Gn0NcCpsdTQbhzWfcwBbR0ID34TKqOy3g="; // Replace with your actual API key
 
-const internetDependencyResponses = require(`${DATA_DIR}/internetDependencyResponses.json`);
-const bullshitResponses = require(`${DATA_DIR}/bullshit.json`);
-const botProperties = require(`${DATA_DIR}/bot_properties.json`);
-const datasets = require(`${DATA_DIR}/datasets.json`);
+// API and Data Paths
+const INTERNET_DEPENDENCY_RESPONSES_PATH = `${DATA_DIR}/internetDependencyResponses.json`;
+const BULLSHIT_RESPONSES_PATH = `${DATA_DIR}/bullshit.json`;
+const BOT_PROPERTIES_PATH = `${DATA_DIR}/bot_properties.json`;
+const DATASETS_PATH = `${DATA_DIR}/datasets.json`;
+
+// Loading data
+const internetDependencyResponses = require(INTERNET_DEPENDENCY_RESPONSES_PATH);
+const bullshitResponses = require(BULLSHIT_RESPONSES_PATH);
+const botProperties = require(BOT_PROPERTIES_PATH);
+const datasets = require(DATASETS_PATH);
 
 const app = express();
 const herc = new Hercai(HERC_API_KEY); // Initialize Hercai with API key
@@ -35,21 +42,20 @@ app.get('/', (req, res) => {
 
 // Helper functions
 function generatePrompt(question) {
-    return fs.readFileSync(`${DATA_DIR}/prompt.txt`).toString().replace(/question/g, question);
+    const promptTemplate = fs.readFileSync(`${DATA_DIR}/prompt.txt`).toString();
+    return promptTemplate.replace(/question/g, question);
 }
 
 function AIMLCallback(answer, wildCardArray, input) {
     const bullshit = getBullshit();
-    if (answer && !answer.includes("undefined")) {
-        return {
+    return answer && !answer.includes("undefined")
+        ? {
             reply: answer,
             hiragana_form: bullshit.japanese,
             id: bullshit.id,
             type: bullshit.type
-        };
-    } else {
-        return internetDependencyResponses[Math.floor(Math.random() * internetDependencyResponses.length)];
-    }
+        }
+        : internetDependencyResponses[Math.floor(Math.random() * internetDependencyResponses.length)];
 }
 
 function getAIMLResponse(text) {
@@ -71,7 +77,7 @@ app.post('/mikuAi', async (req, res) => {
     if (!content) {
         return res.json({
             success: false,
-            message: "content is needed in the JSON payload"
+            message: "Content is needed in the JSON payload"
         });
     }
 
@@ -107,7 +113,7 @@ app.post('/mikuAi-offline', async (req, res) => {
     if (!content) {
         return res.json({
             success: false,
-            message: "content is needed in the JSON payload"
+            message: "Content is needed in the JSON payload"
         });
     }
 
