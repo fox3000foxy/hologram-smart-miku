@@ -4,7 +4,7 @@ import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { loadMixamoAnimation } from './loadMixamoAnimation.js';
 import GUI from 'three/addons/libs/lil-gui.module.min.js';
 
-const PYRAMID_MODE = true;
+const PYRAMID_MODE = false;
 
 // Constantes pour les conditions
 const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku"];
