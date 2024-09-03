@@ -4,6 +4,10 @@ import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { loadMixamoAnimation } from './loadMixamoAnimation.js';
 import GUI from 'three/addons/libs/lil-gui.module.min.js';
 
+// Constantes pour les conditions
+const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku"];
+const GOODBYE_PHRASES = ["au revoir miku", "au revoir micou", "au revoir mikou"];
+
 // Éléments DOM
 const lyricsElement = document.getElementById("lyrics");
 lyricsElement.innerHTML = "<i>Cliquez pour commencer</i>";
@@ -29,15 +33,9 @@ function startWakeupRecognition() {
 
 wakeupRecognizer.onresult = function(event) {
     for (let i = event.resultIndex; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript.toLowerCase();
+        const transcript = event.results[i][0].transcript.toLowerCase().trim().replace("nico", "miku");
         if (event.results[i].isFinal) {
-			// console.log(transcript.toLowerCase().trim())
-            if (
-				transcript.toLowerCase().trim().replace("nico","miku").includes("hey miku") || 
-				transcript.toLowerCase().trim().replace("nico","miku").includes("hey micou") || 
-				transcript.toLowerCase().trim().replace("nico","miku").includes("hey mikou") || 
-				transcript.toLowerCase().trim().replace("nico","miku").includes("et miku") 
-			) {
+            if (WAKEUP_PHRASES.some(phrase => transcript.includes(phrase))) {
                 wakeupRecognizer.stop();
                 wakeMiku();
             }
@@ -59,28 +57,24 @@ function startGlobalRecognition() {
 
 globalRecognizer.onresult = async function(event) {
     for (let i = event.resultIndex; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript.replace("\n", "<br>").replace("nico", "Miku");
+        const transcript = event.results[i][0].transcript.replace("\n", "<br>").replace("nico", "Miku").toLowerCase().trim();
         if (event.results[i].isFinal) {
             globalRecognizer.stop();
             if (transcript) {
-				if(
-					transcript.toLowerCase().trim().includes("au revoir miku") ||
-					transcript.toLowerCase().trim().includes("au revoir micou") ||
-					transcript.toLowerCase().trim().includes("au revoir mikou")
-				) {
-					globalRecognizer.stop();
-					startWakeupRecognition();
-				} else {
-					await interact(
-						transcript,
-						() => playAnimation("Talking"),
-						() => {
-							playAnimation("Idle2");
-							globalRecognizer.start();
-						},
-						() => globalRecognizer.start()
-					);
-				}
+                if (GOODBYE_PHRASES.some(phrase => transcript.includes(phrase))) {
+                    globalRecognizer.stop();
+                    startWakeupRecognition();
+                } else {
+                    await interact(
+                        transcript,
+                        () => playAnimation("Talking"),
+                        () => {
+                            playAnimation("Idle2");
+                            globalRecognizer.start();
+                        },
+                        () => globalRecognizer.start()
+                    );
+                }
             } else {
                 globalRecognizer.start();
             }
@@ -302,27 +296,3 @@ async function interact(text, cbPlay, cbStop, cbError) {
         lyricsElement.innerHTML = "Il y a eu une erreur. Regarde la console :/";
     }
 }
-
-// Tests unitaires supplémentaires
-// Demandes en ligne
-// askAI("Bonjour Miku, comment vas-tu ?").then((response) => { console.log(`Réponse AI en ligne: ${response}`); });
-// askAI("Quel est le temps aujourd'hui ?").then((response) => { console.log(`Réponse AI en ligne: ${response}`); });
-// askAI("Raconte-moi une blague.").then((response) => { console.log(`Réponse AI en ligne: ${response}`); });
-
-// Demandes hors ligne
-// askAIOffline("Quel est ton nom ?").then((response) => { console.log(`Réponse AI hors ligne: ${response}`); });
-// askAIOffline("Quelle heure est-il ?").then((response) => { console.log(`Réponse AI hors ligne: ${response}`); });
-// askAIOffline("Peux-tu chanter une chanson ?").then((response) => { console.log(`Réponse AI hors ligne: ${response}`); });
-
-// Tests de synthèse vocale
-// speechSynthesis("Bonjour, je suis Miku.", () => { console.log("Lecture commencée."); }, () => { console.log("Lecture terminée."); });
-// speechSynthesis("C'est une belle journée.", () => { console.log("Lecture commencée."); }, () => { console.log("Lecture terminée."); });
-
-// Tests de lecture audio
-// playAudio("welcome", () => { console.log("Audio 'welcome' commencé."); }, () => { console.log("Audio 'welcome' terminé."); });
-// playAudio("goodbye", () => { console.log("Audio 'goodbye' commencé."); }, () => { console.log("Audio 'goodbye' terminé."); });
-
-// Tests d'interaction
-// interact("Salut Miku!", () => { console.log("Animation 'Talking' jouée."); }, () => { console.log("Animation 'Idle2' jouée."); }, () => { console.log("Erreur dans l'interaction."); });
-// interact("Chante une chanson.", () => { console.log("Animation 'Talking' jouée."); }, () => { console.log("Animation 'Idle2' jouée."); }, () => { console.log("Erreur dans l'interaction."); });
-
