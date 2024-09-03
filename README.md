@@ -20,8 +20,8 @@ Le mode pyramide permet, à l'aide d'une pyramide de plexiglass, de pouvoir proj
 # TODO
 - Refactoriser le code en Typescript.
 - Voir les traductions des phrases de réveil à la place de "Réveil...".
-- Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.<br>
-~~- Optimiser le code via des standards et remplacer les textes en brut par des constantes~~
+- Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.
+- ~~Optimiser le code via des standards et remplacer les textes en brut par des constantes~~
 - Rajouter la reconnaissance vocale continue persistante (elle est censée marcher mais ne marche pas :\)
 - Prévoir des API du genre "météo, news, iot, etc..."
 - Créer un système de cache pour les API précédentes: <br>
