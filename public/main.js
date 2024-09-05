@@ -65,8 +65,10 @@ wakeupRecognizer.onend = function(event) {
 
 // Fonction pour jouer un son de réveil et démarrer la reconnaissance globale
 async function wakeMiku() {
-    lyricsElement.innerHTML = "<i>Réveil...</i>";
-    await playAudio(`wakeup${Math.floor(Math.random() * 4) + 1}`, () => {}, startGlobalRecognition);
+	let id = Math.floor(Math.random() * 4) + 1;
+	let {response} = await fetch(`/wakeupText?id=${id}`).then(res=>res.json());
+    lyricsElement.innerHTML = `<i>${response.translation} (Réveil...)</i>`;
+    await playAudio(`wakeup${id}`, () => {}, startGlobalRecognition);
 }
 
 // Fonction pour démarrer la reconnaissance globale

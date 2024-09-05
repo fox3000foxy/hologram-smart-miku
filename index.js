@@ -19,12 +19,14 @@ const HERC_API_KEY = process.env.HERC_API_KEY; // Replace with your actual API k
 // API and Data Paths
 const INTERNET_DEPENDENCY_RESPONSES_PATH = `${DATA_DIR}/internetDependencyResponses.json`;
 const BULLSHIT_RESPONSES_PATH = `${DATA_DIR}/bullshit.json`;
+const WAKEUP_REPONSES_PATH = `${DATA_DIR}/wakeup.json`;
 const BOT_PROPERTIES_PATH = `${DATA_DIR}/bot_properties.json`;
 const DATASETS_PATH = `${DATA_DIR}/datasets.json`;
 
 // Loading data
 const internetDependencyResponses = require(INTERNET_DEPENDENCY_RESPONSES_PATH);
 const bullshitResponses = require(BULLSHIT_RESPONSES_PATH);
+const wakeupResponses = require(WAKEUP_REPONSES_PATH);
 const botProperties = require(BOT_PROPERTIES_PATH);
 const datasets = require(DATASETS_PATH);
 
@@ -268,6 +270,16 @@ app.get('/isOnline', async (req, res) => {
     });
 });
 
+app.get('/wakeupText', (req,res) => {
+	const wakeupId = req.query?.id;
+	if(!wakeupId || (wakeupId > 6 && wakeupId < 1)) {
+		res.send({success: false})
+	} else {
+		let wakeup = wakeupResponses.find(({id})=>id==wakeupId)
+		res.send({success: true, response: wakeup})
+	}
+})
+
 // Serve static files
 app.use(express.static(PUBLIC_DIR));
 
@@ -275,7 +287,6 @@ app.use(express.static(PUBLIC_DIR));
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
 
 /** APIS */
 //Weather API
