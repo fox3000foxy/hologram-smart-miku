@@ -7,8 +7,8 @@ import GUI from 'three/addons/libs/lil-gui.module.min.js';
 const PYRAMID_MODE = false;
 
 // Constantes pour les conditions
-const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku"];
-const GOODBYE_PHRASES = ["au revoir miku", "au revoir micou", "au revoir mikou"];
+const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku", "bonjour mikou", "bonjour miku", "bonjour micou"];
+const GOODBYE_PHRASES = ["au revoir miku", "au revoir micou", "au revoir mikou", "au revoir nico"];
 
 // Éléments DOM
 const lyricsElement = document.getElementById("lyrics");
@@ -30,7 +30,7 @@ function startWakeupRecognition() {
     playAnimation("WavingGesture")
 	playAudio("welcome", ()=>{}, () => {
 		wakeupRecognizer.start();
-		lyricsElement.innerHTML = "<i>Dites 'Hey Miku' pour commencer</i>";
+		lyricsElement.innerHTML = "<i>Dites 'Hey Miku' ou 'Bonjour Miku' pour commencer</i>";
 		playAnimation("Idle2");
 	});
 }
@@ -304,7 +304,7 @@ async function playNAudio(n, cbPlay, cbStop) {
         return;
     }
 
-    const name = `bullshit${n}`;
+    const name = `bullshit${(n%10) + 1}`;
     const success = await playAudio(name, cbPlay, async () => {
         await playNAudio(n - 1, cbPlay, cbStop);
     });
