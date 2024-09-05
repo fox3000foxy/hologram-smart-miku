@@ -44,6 +44,9 @@ Le mode pyramide permet, à l'aide d'une pyramide de plexiglass, de pouvoir proj
 - Ajouter la météo et les news en offline mode
 - Ajouter un doublage en français pour le Pyramid Mode
 
+# Hébergement
+Vous pouvez utiliser Termux sur votre tablette ou héberger le serveur web sur un Raspberry PI (Il vous faudra le configurer en tant que relai, pour pouvoir recevoir les réponses de l'IA et pouvoir accéder à l'assistante hors connexion)
+
 # Crédits
 - [https://voicevox.hiroshiba.jp/](https://voicevox.hiroshiba.jp/) pour les fichiers audios.
 - La voix de [春日部つむぎ 利用規約 (Kasube Tsumugi)](https://voicevox.hiroshiba.jp/product/kasukabe_tsumugi/) ([Conditions d'utilisations](https://tsumugi-official.studio.site/rule)).
