@@ -68,20 +68,22 @@ Cette vidéo vous montrera comment construire l'hologram box
 Celle ci vous montrera comment construire la pyramide holographique
 
 # TODO
-- *Voir les traductions des phrases de réveil à la place de "Réveil...". (Déprécié, pourra peut être être fait plus tard, mais sans plus de priorité)* 
-- Refactoriser le code en Typescript. (Sera probablement fait à la fin)
-- Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.
-- ~~Optimiser le code via des standards et remplacer les textes en brut par des constantes~~
-- ~~Rajouter~~ Forcer la reconnaissance vocale continue persistante. (Implémentée mais buggée :\)
-- ~~Prévoir des API du genre "météo, news, iot, etc..."~~ 
+- Voir les traductions des phrases de réveil à la place de "Réveil...".
+- *Refactoriser le code en Typescript. (Sera probablement fait à la fin)*
 - *Créer un système de cache pour les API précédentes:* <br>
+  - Pour l'IOT: mettre en place un système de routage LAN pour les équipements et appareils connectés._
   - ~~Pour la météo: récupérer les données GPS (facultatif), conserver dans un fichier "cache" la météo heure par heure, et en fonction de l'heure, donner la météo~~
   - ~~Pour les news: garder en cache certaines news, et demander à l'IA de pouvoir en faire des synthèses pour pouvoir garder des news concises~~
-  - _Pour l'IOT: mettre en place un système de routage LAN pour les équipements et appareils connectés._
   - ~~Pour le reste: récupérer régulièrement les données (toutes les 15 minutes), les stocker dans un fichier cache dédié, et si hors ligne, renvoyer le cache, sinon, renvoyer la donnée récupérée à l'instant T.~~
-- ~~Ajouter la météo et les news en offline mode.~~ Coder l'intelligence artificielle pour pouvoir donner ces informations.
+- *Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.*
+- ~~Optimiser le code via des standards et remplacer les textes en brut par des constantes~~
+- ~~Rajouter~~ ~~Forcer la reconnaissance vocale continue persistante. (Implémentée mais buggée :\)~~
+- ~~Prévoir des API du genre "météo, news, iot, etc..."~~ 
+- ~~Ajouter la météo et les news en offline mode. Coder l'intelligence artificielle pour pouvoir donner ces informations.~~
 - ~~Ajouter une synthèse vocale qui fera le doublage en français pour le Pyramid Mode.~~
 - ~~Rendre les sous titres responsive (ils sont trop gros pour un petit écran).~~
+
+Ce qui est en italique est infaisable tant que je n'ai pas le matériel.
 
 # License
 MIT, voir LICENSE pour plus de détails.
