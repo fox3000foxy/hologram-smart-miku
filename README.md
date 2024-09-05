@@ -3,37 +3,38 @@
 _Hatsune Miku Hologram Version that acts like Alexa_
 **Beware : French documentation !**
 
-Ce projet est un DIY personnel que j'ai tenu à faire après une mauvaise expérience d'achat au Japon.
-Cet achat était une Digital Figure Box de la marque GateBox qui devait coûter 5500 yens (30€), et qui m'est finalement revenu à 83€. Je pensais que cette petite boite pouvait faire le job de sa version originale à 2700€, mais je me suis retrouvé avec une boite en carton qui avait besoin d'un smartphone pour faire écran (donc 50€ en plus :D).
-Elle remplacera donc [cet objet](https://www.youtube.com/watch?v=nkcKaNqfykg) qui coûte trop cher pour moi et qui peut faire les mêmes choses en termes techniques.
-La seule différence est que la waifu ne sera pas active de manière constante, pour plus d'information, voir la section **Documentation**
+Ce projet est un DIY personnel que j'ai tenu à faire après une mauvaise expérience d'achat au Japon.<br>
+Cet achat était une Digital Figure Box de la marque GateBox qui devait coûter 5500 yens (30€), et qui m'est finalement revenu à 83€.<br>
+Je pensais que cette petite boite pouvait faire le job de sa version originale à 2700€, mais je me suis retrouvé avec une boite en carton qui avait besoin d'un smartphone pour faire écran (donc 50€ en plus :D).<br>
+Elle remplacera donc [cet objet](https://www.youtube.com/watch?v=nkcKaNqfykg) qui coûte trop cher pour moi et qui peut faire les mêmes choses en termes techniques.<br>
+La seule différence est que la waifu ne sera pas active de manière constante. Pour plus d'information, voir la section **Documentation**
 
 La partie construction matérielle peut être trouvée sur Internet et YouTube, que ça soit une simple hologram box ou une pyramid box. Vous pourrez trouver des vidéos que je recommande de suivre pour pouvoir construire le projecteur holographique que vous souhaitez. Adaptez les constructions à la taille de votre écran, je recommande un écran de tablette 8 pouces. (disponible dans **Matériel pour le DIY**)
 
-La partie logicielle est celle que j'ai codée et qui se trouve dans ce repository.
-Elle supporte les deux formes de box et fonctionne également hors ligne.
-Elle peut également, via plusieurs API, vous donner la météo, vous informer des dernières nouvelles, ou encore contrôler les appareils connectés à l'aide de simples commandes vocales.
+La partie logicielle est celle que j'ai codée et qui se trouve dans ce repository.<br>
+Elle supporte les deux formes de box et fonctionne également hors ligne.<br>
+Elle peut également, via plusieurs API, vous donner la météo, vous informer des dernières nouvelles, ou encore contrôler les appareils connectés à l'aide de simples commandes vocales.<br>
 Vous pouvez interroger la waifu à la manière d'Alexa.
 
 Elle est conçue pour pouvoir répondre entièrement en ligne, ainsi qu'à quelques questions (chatbot AIML A.L.I.C.E fine-tuné) et commandes ("allumes la lumière","éteins la lumière", "donne moi la météo", "donne moi la température") quand elle tourne sans internet. (La liste des questions disponibles sera bientôt disponible)
 
 # Documentation 
-La première fois, cliquez sur votre écran et dites "Hey Miku !" (ca doit sonner comme "et mikou", vous pouvez également dire "nico").
-Ensuite, décrivez votre requête et laissez l'IA vous répondre :)
-L'assistante vous écoutera tout le long que vous interagissez avec elle.
-Quand vous avez fini, dites "Au revoir Miku.", vous pourrez la réveiller plus tard.
+La première fois, cliquez sur votre écran et dites "Hey Miku !" (ca doit sonner comme "et mikou", vous pouvez également dire "nico").<br>
+Ensuite, décrivez votre requête et laissez l'IA vous répondre. :)<br>
+L'assistante vous écoutera tout le long que vous interagissez avec elle.<br>
+Quand vous avez fini, dites "Au revoir Miku.", vous pourrez la réveiller plus tard.<br>
 
 Comme dit plus haut, elle comprend une IA hors ligne, qui est un chatbot AIML conditionné pour se comporter comme Miku, basée sur A.L.I.C.E.
 
-L'hologrammification fait parti du projet, inspirée de [cette vidéo](https://www.youtube.com/watch?v=P09TWAMLhE4).
+L'hologrammification fait parti du projet, inspirée de [cette vidéo](https://www.youtube.com/watch?v=P09TWAMLhE4).<br>
 L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Alexa, sous forme de Miku, et ayant une présence, un "corps".
 
 Vous pourrez importer un modèle personnalisé pour votre assistante, à condition de changer la source du modèle chargé dans public/main.js.
 
 Le mode pyramide est également disponible: <br>
 ![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)<br>
-Il permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu à 360 degrés équilatéral de notre assistante.
-Vous pouvez changer la variable `PYRAMID_MODE` à `TRUE` dans public/main.js pour pouvoir passer au mode pyramide.
+Il permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu à 360 degrés équilatéral de notre assistante.<br>
+Vous pouvez changer la variable `PYRAMID_MODE` à `TRUE` dans public/main.js pour pouvoir passer au mode pyramide.<br>
 **ATTENTION:** Le mode pyramide remplace les sous titres par un doublage en français ! (Il ne remplace pas la voix de l'assistante, mais le baisse considérablement).
 
 # Hébergement
