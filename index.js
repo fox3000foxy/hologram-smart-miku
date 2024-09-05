@@ -4,6 +4,8 @@ const { Readable } = require("stream");
 const aimlHigh = require('./aiml-high');
 const fs = require('fs');
 const { Hercai } = require('hercai');
+const SearchEngine = require('cdrake-se');
+
 process.env = {...process.env, ...require('dotenv').config().parsed}
 
 // Constants
@@ -43,7 +45,16 @@ app.get('/', (req, res) => {
 
 // Helper functions
 function generatePrompt(question) {
-    const promptTemplate = fs.readFileSync(`${DATA_DIR}/prompt.txt`).toString();
+    let promptTemplate = fs.readFileSync(`${DATA_DIR}/prompt.txt`).toString();
+	if(question.includes("météo")) {
+		promptTemplate += `Voici la météo pour les 7 prochains jours: \n${format7DayForecast(getMeteoCache())}. Ne donne que celle qui t'es demandé.`
+	}
+	if(question.includes("température")) {
+		promptTemplate += `Voici la température: ${getTemperature(new Date())}°C`
+	}
+	if(question.includes("nouvelles") || question.includes("news")) {
+		promptTemplate += `Voici les news récentes: \n${formatSearchResults(getNewsCache())}`
+	}
     return promptTemplate.replace(/question/g, question);
 }
 
@@ -72,6 +83,84 @@ function getBullshit() {
     return bullshitResponses[Math.floor(Math.random() * bullshitResponses.length)];
 }
 
+function formatSearchResults(searchResults) {
+  return searchResults.map(result => {
+    return `${result.Publisher} ${result.PublishedAt} | **${result.Title}** : ${result.Description}`;
+  });
+}
+
+function convertToHours(publishedAt) {
+  if (publishedAt.includes('heure') || publishedAt.includes('heures')) {
+    return parseInt(publishedAt.match(/\d+/)[0]);
+  } else if (publishedAt.includes('jour') || publishedAt.includes('jours')) {
+    return parseInt(publishedAt.match(/\d+/)[0]) * 24;
+  }
+  return 0;
+}
+
+function sortByRecent(searchResults) {
+  return searchResults.sort((a, b) => {
+    const hoursA = convertToHours(a.PublishedAt);
+    const hoursB = convertToHours(b.PublishedAt);
+    return hoursA - hoursB;
+  });
+}
+
+function getClosestTemperature(date, weatherData) {
+  const targetTime = date.toISOString();
+
+  let closestIndex = 0;
+  let closestDifference = Math.abs(new Date(weatherData.hourly.time[0]) - date);
+
+  for (let i = 1; i < weatherData.hourly.time.length; i++) {
+    const currentDifference = Math.abs(new Date(weatherData.hourly.time[i]) - date);
+    if (currentDifference < closestDifference) {
+      closestDifference = currentDifference;
+      closestIndex = i;
+    }
+  }
+
+  return weatherData.hourly.temperature_2m[closestIndex];
+}
+
+function calculateDailyAverages(weatherData) {
+  const dailyAverages = [];
+  let dayTemps = [];
+  let currentDay = new Date(weatherData.hourly.time[0]).getDate();
+
+  weatherData.hourly.time.forEach((time, index) => {
+    const date = new Date(time);
+    const day = date.getDate();
+
+    if (day === currentDay) {
+      dayTemps.push(weatherData.hourly.temperature_2m[index]);
+    } else {
+      const averageTemp = dayTemps.reduce((a, b) => a + b, 0) / dayTemps.length;
+      dailyAverages.push({ day: new Date(time).toISOString().split("T")[0], averageTemp });
+
+      dayTemps = [weatherData.hourly.temperature_2m[index]];
+      currentDay = day;
+    }
+  });
+
+  if (dayTemps.length > 0) {
+    const averageTemp = dayTemps.reduce((a, b) => a + b, 0) / dayTemps.length;
+    dailyAverages.push({ day: new Date(weatherData.hourly.time[weatherData.hourly.time.length - 1]).toISOString().split("T")[0], averageTemp });
+  }
+
+  return dailyAverages;
+}
+
+function format7DayForecast(weatherData) {
+  const dailyAverages = calculateDailyAverages(weatherData);
+  
+  const next7DaysForecast = dailyAverages.slice(0, 7).map(dayData => {
+    return `Le ${dayData.day}, la température moyenne sera de ${dayData.averageTemp.toFixed(1)}°C.`;
+  });
+
+  return next7DaysForecast.join("\n");
+}
+
 // API endpoints
 app.post('/mikuAi', async (req, res) => {
     const content = req.body?.content;
@@ -83,7 +172,7 @@ app.post('/mikuAi', async (req, res) => {
     }
 
     try {
-        const prompt = generatePrompt(content);
+		const prompt = generatePrompt(content);
         const { reply } = await herc.question({
             model: "turbo",
             content: prompt
@@ -108,12 +197,6 @@ app.post('/mikuAi', async (req, res) => {
         });
     }
 });
-
-//Weather API
-async function getMeteo(location) {	
-	const url = `https://wttr.in/${location}?format=j1`;
-	return await fetch(url).then(response => response.json());
-}
 
 
 app.post('/mikuAi-offline', async (req, res) => {
@@ -169,24 +252,69 @@ app.listen(PORT, () => {
 });
 
 
+/** APIS */
+//Weather API
+async function getMeteo(latitude,longitude) {	
+	const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m`;
+	return await fetch(url).then(response => response.json());
+}
+
+//News API
+async function getNews(Query){
+    try{
+        const news = await SearchEngine({
+            Method: 'News',
+            Page: 1,
+            Query,
+            Language: 'fr'
+        });
+		return sortByRecent(news.Results);
+    }catch(SearchRuntimeError){
+        console.log(SearchRuntimeError);
+    }
+}
+
+/** Get caches */
+// Weather cache
+function getMeteoCache() {
+	return JSON.parse(fs.readFileSync("./cache/weather.json").toString());
+}
+
+// News cache
+function getNewsCache() {
+	return JSON.parse(fs.readFileSync("./cache/news.json").toString());
+}
+
+/** Get caches specific values */
+// Weather value
+function getTemperature(date) {
+	const meteo = getClosestTemperature(date, getMeteoCache());
+	return meteo;
+}
+
 /** Caches daemons */
 //Weather cache
 async function weatherDaemon(){	
-	let data = await getMeteo(process.env.CITY)
-	fs.writeFileSync("./cache/weather.json", JSON.stringify(data.weather));
+	let data = await getMeteo(process.env.LATITUDE,process.env.LONGITUDE)
+	fs.writeFileSync("./cache/weather.json", JSON.stringify(data,0,2));
+}
+
+//News cache
+async function newsDaemon(){	
+	let data = await getNews(process.env.NEWS_PREFERENCES)
+	fs.writeFileSync("./cache/news.json", JSON.stringify(data,0,2));
 }
 
 //Daemons every hour
 function executeDaemons() {
 	require('dns').resolve('www.google.com', async (err) => {
         if(!err) {
-			await weatherDaemon()			
+			await weatherDaemon();
+			await newsDaemon();
 		}
     });
 }
-setInterval(executeDaemons, 60 * 60 * 1000)
+setInterval(executeDaemons, 60 * 60 * 1000);	
 
 //First launch
-// executeDaemons()
-
-
+executeDaemons()
