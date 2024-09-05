@@ -68,14 +68,16 @@ Cette vidéo vous montrera comment construire l'hologram box
 Celle ci vous montrera comment construire la pyramide holographique
 
 # TODO
-- Voir les traductions des phrases de réveil à la place de "Réveil...".
 - *Refactoriser le code en Typescript. (Sera probablement fait à la fin)*
-- *Créer un système de cache pour les API précédentes:* <br>
+<details>
+<summary>- *Créer un système de cache pour les API précédentes:* <br></summary>
   - Pour l'IOT: mettre en place un système de routage LAN pour les équipements et appareils connectés._
   - ~~Pour la météo: récupérer les données GPS (facultatif), conserver dans un fichier "cache" la météo heure par heure, et en fonction de l'heure, donner la météo~~
   - ~~Pour les news: garder en cache certaines news, et demander à l'IA de pouvoir en faire des synthèses pour pouvoir garder des news concises~~
   - ~~Pour le reste: récupérer régulièrement les données (toutes les 15 minutes), les stocker dans un fichier cache dédié, et si hors ligne, renvoyer le cache, sinon, renvoyer la donnée récupérée à l'instant T.~~
+</summary>
 - *Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.*
+- ~~Voir les traductions des phrases de réveil à la place de "Réveil...".~~
 - ~~Optimiser le code via des standards et remplacer les textes en brut par des constantes~~
 - ~~Rajouter~~ ~~Forcer la reconnaissance vocale continue persistante. (Implémentée mais buggée :\)~~
 - ~~Prévoir des API du genre "météo, news, iot, etc..."~~ 
