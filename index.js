@@ -155,10 +155,14 @@ function format7DayForecast(weatherData) {
   const dailyAverages = calculateDailyAverages(weatherData);
   
   const next7DaysForecast = dailyAverages.slice(0, 7).map(dayData => {
-    return `Le ${dayData.day}, la température moyenne sera de ${dayData.averageTemp.toFixed(1)}°C.`;
+    return `Le ${parseInt(dayData.day.split("-")[2])}, il fera ${parseInt(dayData.averageTemp)}°.`;
   });
 
   return next7DaysForecast.join("\n");
+}
+
+function switchLights(state) {
+	//TO CODE
 }
 
 // API endpoints
@@ -207,8 +211,29 @@ app.post('/mikuAi-offline', async (req, res) => {
             message: "Content is needed in the JSON payload"
         });
     }
+	
+	let response;
 
-    const response = getAIMLResponse(content);
+	if(content=="donne-moi la météo" || content=="quelle est la météo") {
+		response = {reply: `Voici la météo pour les 7 prochains jours: \n${format7DayForecast(getMeteoCache())}`}
+	}
+	else if(content=="donne-moi la température" || content=="quelle est la température") {
+		response = {reply: `La température actuelle est de ${getTemperature(new Date())}°.`}
+	}
+	else if(content=="quelles sont les news" || content=="quelles sont les nouvelles") {
+		response = {reply: `Voici les nouvelles: ${formatSearchResults(getNewsCache())}`}
+	}
+	else if(content=="allume la lumière") {
+		switchLights(true);
+		response = {reply: `J'ai allumé la lumière.`}
+	}
+	else if(content=="éteins la lumière") {
+		switchLights(false);
+		response = {reply: `J'ai éteint la lumière.`}
+	}
+	else {
+		response = getAIMLResponse(content);		
+	}
     res.json({
         success: true,
         message: response

@@ -26,6 +26,7 @@ globalRecognizer.interimResults = true;
 
 // Fonction pour démarrer la reconnaissance de la phrase de réveil
 function startWakeupRecognition() {
+	waitingForWakeUp = true;
 	lyricsElement.innerHTML = "<i>Miku vous salue</i>";
     playAnimation("WavingGesture")
 	playAudio("welcome", ()=>{}, () => {
@@ -41,12 +42,26 @@ wakeupRecognizer.onresult = function(event) {
         if (event.results[i].isFinal) {
 			console.log(transcript);
             if (WAKEUP_PHRASES.some(phrase => transcript.includes(phrase))) {
+				waitingForWakeUp = false;
                 wakeupRecognizer.stop();
                 wakeMiku();
             }
         }
     }
 };
+
+let waitingForWakeUp = true;
+let waitingForGlobal = true;
+
+wakeupRecognizer.onend = function(event) {
+	if(waitingForWakeUp==true) {		
+		console.log("Waking up recognizer timed out, restarting...")
+		wakeupRecognizer.stop();		
+		setTimeout(()=>{
+			wakeupRecognizer.start();		
+		},200)
+	}
+} 
 
 // Fonction pour jouer un son de réveil et démarrer la reconnaissance globale
 async function wakeMiku() {
@@ -67,6 +82,7 @@ globalRecognizer.onresult = async function(event) {
             globalRecognizer.stop();
             if (transcript) {
                 if (GOODBYE_PHRASES.some(phrase => transcript.includes(phrase))) {
+					waitingForGlobal = false;
                     globalRecognizer.stop();
                     startWakeupRecognition();
                 } else {
@@ -75,9 +91,13 @@ globalRecognizer.onresult = async function(event) {
                         () => playAnimation("Talking"),
                         () => {
                             playAnimation("Idle2");
+							waitingForGlobal = true;
                             globalRecognizer.start();
                         },
-                        () => globalRecognizer.start()
+                        () => {
+							waitingForGlobal = true;
+							globalRecognizer.start()
+						}
                     );
                 }
             } else {
@@ -86,6 +106,16 @@ globalRecognizer.onresult = async function(event) {
         }
     }
 };
+
+globalRecognizer.onend = function(event) {
+	if(waitingForGlobal==true) {		
+		console.log("Global up recognizer timed out...")
+		globalRecognizer.stop();	
+		setTimeout(()=>{
+			startWakeupRecognition();
+		},200)
+	}
+} 
 
 // Configuration du rendu Three.js
 const renderer = new THREE.WebGLRenderer();
@@ -261,7 +291,7 @@ async function askAIOffline(question) {
 }
 
 /** Deprecated: inexisting endpoint */
-async function speechSynthesis(text, cbPlay, cbStop) {
+async function synthesis(text, cbPlay, cbStop) {
     const audio = new Audio();
     try {
         const arrayBuffer = await fetch("voicevox", {
@@ -289,6 +319,7 @@ async function playAudio(name, cbPlay, cbStop) {
         audio.src = `/audio/${name}.wav`;
         audio.onplay = cbPlay;
         audio.onended = cbStop;
+		audio.volume = 0.3;
         audio.play();
 
         return true;
@@ -336,6 +367,13 @@ async function interact(text, cbPlay, cbStop, cbError) {
             } else {
                 const numOfSentences = response.message.reply.replaceAll(",", ".").split(/[.!?]/).length - 1;
                 await playNAudio(numOfSentences, cbPlay, cbStop);
+
+				let utterance = new SpeechSynthesisUtterance(response.message.reply);
+				// let synthesis = synthesis
+				console.log(speechSynthesis)
+				speechSynthesis.lang = "fr-FR";
+				utterance.rate = 2;
+				speechSynthesis.speak(utterance);
             }
         } catch (e) {
             console.error(e);
