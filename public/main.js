@@ -375,7 +375,7 @@ async function interact(text, cbPlay, cbStop, cbError) {
 				// let synthesis = synthesis
 				console.log(speechSynthesis)
 				speechSynthesis.lang = "fr-FR";
-				utterance.rate = 2;
+				utterance.rate = 1.4;
 				speechSynthesis.speak(utterance);
             }
         } catch (e) {
