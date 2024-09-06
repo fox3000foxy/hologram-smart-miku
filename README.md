@@ -32,7 +32,7 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 Vous pourrez importer un modèle personnalisé pour votre assistante, à condition de changer la source du modèle chargé dans public/main.js.
 
 Le mode pyramide est également disponible. <br>
-Cliquez sur cette image pour voir ce que ça donnerait habituellement:<br>
+Cliquez sur cette image pour voir ce que ça donnerait habituellement (cette construction montre juste la projection pyramidale, ce n'est pas la construction du DIY plus bas !):<br>
 [![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)](https://youtu.be/dJruyJ4keqM?t=29)<br>
 Il permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu à 360 degrés équilatéral de notre assistante.<br>
 Vous pouvez changer la variable `PYRAMID_MODE` à `TRUE` dans public/main.js pour pouvoir passer au mode pyramide.<br>
