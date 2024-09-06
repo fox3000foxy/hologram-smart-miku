@@ -81,6 +81,7 @@ globalRecognizer.onresult = async function(event) {
     for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript.replace("\n", "<br>").replace("nico", "Miku").toLowerCase().trim();
         if (event.results[i].isFinal) {
+			waitingForGlobal = false;
             globalRecognizer.stop();
             if (transcript) {
                 if (GOODBYE_PHRASES.some(phrase => transcript.includes(phrase))) {
