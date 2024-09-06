@@ -370,13 +370,14 @@ async function interact(text, cbPlay, cbStop, cbError) {
             } else {
                 const numOfSentences = response.message.reply.replaceAll(",", ".").split(/[.!?]/).length - 1;
                 await playNAudio(numOfSentences, cbPlay, cbStop);
-
+if(PYRAMID_MODE){
 				let utterance = new SpeechSynthesisUtterance(response.message.reply);
 				// let synthesis = synthesis
 				console.log(speechSynthesis)
 				speechSynthesis.lang = "fr-FR";
 				utterance.rate = 1.4;
 				speechSynthesis.speak(utterance);
+}
             }
         } catch (e) {
             console.error(e);
