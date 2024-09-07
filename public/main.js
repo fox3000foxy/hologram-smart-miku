@@ -63,6 +63,10 @@ wakeupRecognizer.onend = function(event) {
 	}
 } 
 
+wakeupRecognizer.onerror = function(event) {
+	console.log(event.error)
+}
+
 // Fonction pour jouer un son de réveil et démarrer la reconnaissance globale
 async function wakeMiku() {
 	let id = Math.floor(Math.random() * 4) + 1;
@@ -338,7 +342,7 @@ async function playNAudio(n, cbPlay, cbStop) {
         return;
     }
 
-    const name = `bullshit${(n%10) + 1}`;
+    const name = `bullshit${(n%10)}`;
     const success = await playAudio(name, cbPlay, async () => {
         await playNAudio(n - 1, cbPlay, cbStop);
     });

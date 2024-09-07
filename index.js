@@ -5,6 +5,7 @@ const aimlHigh = require('./aiml-high');
 const fs = require('fs');
 const { Hercai } = require('hercai');
 const SearchEngine = require('cdrake-se');
+const https = require('https');
 
 process.env = {...process.env, ...require('dotenv').config().parsed}
 
@@ -216,20 +217,20 @@ app.post('/mikuAi-offline', async (req, res) => {
 	
 	let response;
 
-	if(content=="donne-moi la météo" || content=="quelle est la météo") {
+	if(content=="météo") {
 		response = {reply: `Voici la météo pour les 7 prochains jours: \n${format7DayForecast(getMeteoCache())}`}
 	}
-	else if(content=="donne-moi la température" || content=="quelle est la température") {
+	else if(content=="température") {
 		response = {reply: `La température actuelle est de ${getTemperature(new Date())}°.`}
 	}
-	else if(content=="quelles sont les news" || content=="quelles sont les nouvelles") {
+	else if(content=="news" || content=="nouvelles") {
 		response = {reply: `Voici les nouvelles: ${formatSearchResults(getNewsCache())}`}
 	}
-	else if(content=="allume la lumière") {
+	else if(content=="allume lumière") {
 		switchLights(true);
 		response = {reply: `J'ai allumé la lumière.`}
 	}
-	else if(content=="éteins la lumière") {
+	else if(content=="éteins lumière") {
 		switchLights(false);
 		response = {reply: `J'ai éteint la lumière.`}
 	}
@@ -283,8 +284,14 @@ app.get('/wakeupText', (req,res) => {
 // Serve static files
 app.use(express.static(PUBLIC_DIR));
 
+
+
 // Start the server
-app.listen(PORT, () => {
+const httpsOptions = {
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
+}
+const server = https.createServer(httpsOptions, app).listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
