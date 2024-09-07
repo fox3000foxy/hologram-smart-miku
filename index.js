@@ -360,4 +360,4 @@ function executeDaemons() {
 setInterval(executeDaemons, 60 * 60 * 1000);	
 
 //First launch
-executeDaemons()
+executeDaemons();
