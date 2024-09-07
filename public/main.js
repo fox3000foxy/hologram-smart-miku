@@ -342,7 +342,7 @@ async function playNAudio(n, cbPlay, cbStop) {
         return;
     }
 
-    const name = `bullshit${(n%10)}`;
+    const name = `bullshit${(n%10) + 1}`;
     const success = await playAudio(name, cbPlay, async () => {
         await playNAudio(n - 1, cbPlay, cbStop);
     });
