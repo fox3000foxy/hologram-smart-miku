@@ -4,7 +4,7 @@ import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { loadMixamoAnimation } from './loadMixamoAnimation.js';
 import GUI from 'three/addons/libs/lil-gui.module.min.js';
 
-const PYRAMID_MODE = false;
+const PYRAMID_MODE = true;
 
 // Constantes pour les conditions
 const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku", "bonjour mikou", "bonjour miku", "bonjour micou"];
@@ -150,6 +150,7 @@ let vrms = []; // Tableau pour stocker les 4 modèles VRM
 let mixers = []; // Tableau pour stocker les 4 mixers
 let positions = [];
 let rotations = [];
+lyricsElement.style.display = "none";
 if(PYRAMID_MODE) {		
 	positions = [
 		{ x: -0.05, y: 0.6, z: -5.0 }, // Modèle inversé en Z
@@ -165,7 +166,6 @@ if(PYRAMID_MODE) {
 		{ x: Math.PI / 2, y: 0.0, z: Math.PI / 2 + Math.PI } // Rotation vers la droite
 	];
 	
-	lyricsElement.style.display = "none";
 }
 else {
 	positions = [
@@ -223,7 +223,7 @@ for (let i in positions) {
 	if(i == positions.length - 1) {
 		loadVRM(defaultModelUrl,i,()=>{
 			setTimeout(()=>{
-				playAnimation("Idle2");				
+				// playAnimation("Idle2");				
 			},100)
 		});		
 	}
@@ -374,14 +374,14 @@ async function interact(text, cbPlay, cbStop, cbError) {
             } else {
                 const numOfSentences = response.message.reply.replaceAll(",", ".").split(/[.!?]/).length - 1;
                 await playNAudio(numOfSentences, cbPlay, cbStop);
-if(PYRAMID_MODE){
-				let utterance = new SpeechSynthesisUtterance(response.message.reply);
-				// let synthesis = synthesis
-				console.log(speechSynthesis)
-				speechSynthesis.lang = "fr-FR";
-				utterance.rate = 1.4;
-				speechSynthesis.speak(utterance);
-}
+				if(PYRAMID_MODE){
+					let utterance = new SpeechSynthesisUtterance(response.message.reply);
+					// let synthesis = synthesis
+					console.log(speechSynthesis)
+					speechSynthesis.lang = "fr-FR";
+					utterance.rate = 1.4;
+					speechSynthesis.speak(utterance);
+				}
             }
         } catch (e) {
             console.error(e);
@@ -392,3 +392,77 @@ if(PYRAMID_MODE){
         lyricsElement.innerHTML = "Il y a eu une erreur. Regarde la console :/";
     }
 }
+
+/** Record animations
+
+var blob, deviceRecorder = null;
+var chunks = [];
+const displayMediaOptions = {
+  video: {
+    displaySurface: "browser",
+	frameRate: 60,
+	"height": 1440,
+    "width": 2560,
+    "resizeMode": "crop-and-scale",
+  },
+  audio: {
+    suppressLocalAudioPlayback: false,
+  },
+  preferCurrentTab: true,
+  // selfBrowserSurface: "exclude",
+  systemAudio: "exclude",
+  surfaceSwitching: "include",
+  monitorTypeSurfaces: "include",
+};
+
+async function startRecording(){
+    var stream =  await navigator.mediaDevices.getDisplayMedia(
+      displayMediaOptions
+    );
+
+    deviceRecorder = new MediaRecorder(stream, {mimeType: "video/webm"});
+	deviceRecorder.ondataavailable = (e) => {
+		if(e.data.size > 0){
+			 chunks.push(e.data);
+		}
+	}
+	deviceRecorder.onstop = () => {
+		chunks = [];
+	}
+	deviceRecorder.start(250)
+}
+
+function stopRecording(filename){
+    // var filename = window.prompt("File name", "video"); // Ask the file name
+
+    deviceRecorder.stop(); // Stopping the recording
+    blob = new Blob(chunks, {type: "video/webm"})
+    chunks = [] // Resetting the data chunks
+    var dataDownloadUrl = URL.createObjectURL(blob);
+
+    // Downloadin it onto the user's device
+    let a = document.createElement('a')
+    a.href = dataDownloadUrl;
+    a.download = `${filename}.webm`
+    a.click()
+    
+    URL.revokeObjectURL(dataDownloadUrl)
+}
+
+async function motionToMp4(animation) {
+	let capture = await startRecording();
+	setTimeout(()=>{		
+		loadFBX(`/animations/${animation}.fbx`, () => {
+		}, () => {
+			setTimeout(()=>{		
+				stopRecording(animation)
+			},500)
+		})
+	},1250)
+}
+
+setTimeout(()=>{
+	motionToMp4("WavingGesture")
+},5000)
+
+ */

@@ -52,6 +52,16 @@
 				
 				display: none; /* A commenter pour pouvoir positionner les modèles*/
 			}
+			
+			video {
+				position:absolute;
+				z-index:2;
+				top:-25px;
+				left:0;
+				width:100%;
+				height:100%;
+				image-rendering: pixelated;
+			}
 		</style>
 	</head>
 
@@ -72,6 +82,13 @@
 		</script>
 		<div id="indicator"></div>
 		<div id="lyrics">Lyrcis placeholder to see if the length condition is respected or not</div>
-		<script src="main.js" type="module"></script>
+		
+		<!-- Preload "animations" -->
+		<video style="display:none;" autoplay muted loop id="TalkingVideo"></video>
+		<video style="display:none;" autoplay muted loop id="IdleVideo"></video>
+		<video style="display:none;" autoplay muted loop id="WavingVideo"></video>
+
+		<!-- <script src="main.js" type="module"></script> -->
+		<script src="index.js"></script>
 	</body>
 </html>
