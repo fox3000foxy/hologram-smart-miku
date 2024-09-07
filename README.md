@@ -19,6 +19,8 @@ Vous pouvez interroger la waifu à la manière d'Alexa.
 Elle est conçue pour pouvoir répondre entièrement en ligne, ainsi qu'à quelques questions (chatbot AIML A.L.I.C.E fine-tuné) et commandes ("allumes la lumière","éteins la lumière", "donne moi la météo", "donne moi la température") quand elle tourne sans internet. (La liste des questions disponibles sera bientôt disponible)
 
 # Documentation 
+**Veillez à bien vous rendre en https sur le site. Autrement votre micro ne marchera pas !**
+
 La première fois, cliquez sur votre écran et dites "Hey Miku !" (ca doit sonner comme "et mikou", vous pouvez également dire "nico").<br>
 Ensuite, décrivez votre requête et laissez l'IA vous répondre. :)<br>
 L'assistante vous écoutera tout le long que vous interagissez avec elle.<br>
