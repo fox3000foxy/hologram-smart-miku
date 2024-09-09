@@ -361,3 +361,14 @@ setInterval(executeDaemons, 60 * 60 * 1000);
 
 //First launch
 executeDaemons();
+
+//Prevent process from crashing
+process.on('uncaughtException', (error)  => {
+    console.log('Oh my god, something terrible happened: ',  error);
+    process.exit(1); // exit application 
+})
+
+process.on('unhandledRejection', (error, promise) => {
+  console.log(' Oh Lord! We forgot to handle a promise rejection here: ', promise);
+  console.log(' The error was: ', error );
+});
