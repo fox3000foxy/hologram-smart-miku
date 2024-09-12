@@ -34,8 +34,8 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 Vous pourrez importer un modèle personnalisé pour votre assistante, à condition de changer la source du modèle chargé dans public/main.js.
 
 Le mode pyramide est également disponible. <br>
-Cliquez sur cette image pour voir ce que ça donnerait habituellement (cette construction montre juste la projection pyramidale, ce n'est pas la construction du DIY plus bas !):<br>
-[![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)](https://youtu.be/dJruyJ4keqM?t=29)<br>
+<!-- Cliquez sur cette image pour voir ce que ça donnerait habituellement (cette construction montre juste la projection pyramidale, ce n'est pas la construction du DIY plus bas !):<br> -->
+<!-- [![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)](https://youtu.be/dJruyJ4keqM?t=29)<br> -->
 Il permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu à 360 degrés équilatéral de notre assistante.<br>
 Vous pouvez changer la variable `PYRAMID_MODE` à `TRUE` dans public/main.js pour pouvoir passer au mode pyramide.<br>
 **ATTENTION:** Le mode pyramide remplace les sous titres par un doublage en français ! (Il ne remplace pas la voix de l'assistante, mais le baisse considérablement).
@@ -54,11 +54,12 @@ Vous pouvez utiliser Termux sur votre appareil (pour moi c'est une tablette 8 po
 
 # Matériel pour le DIY
 - Ecran: [Tablette 8 Pouces (avec Protecteur d'écran lumière Bleue)](https://www.amazon.fr/gp/product/B0C7VHG8PL/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1)
-- Pyramide / Ecran de projection: [Lot de 5 feuilles en acrylique transparent (8,26x11,6 pouces, panneau en plastique, épaisseur de 1mm)](https://www.temu.com/fr/lot-de-5-feuilles-en-acrylique-transparent-8-26x11-6-pouces-panneau-en-plastique-pour-le-remplacement--de-cadre-photo-projets-d-exposition-artistique-%C3%A9paisseur-de-1-0-mm-film-anti-rayures-haute-clart%C3%A9-g-601099563734027.html?_oak_mp_inf=EIuo4q%2Bm1ogBGiAxM2JkMjgzZWNlYWQ0YWYwODE5MTdiZjVlMDg5NWQzOSDw7pC6mzI%3D&top_gallery_url=https%3A%2F%2Fimg.kwcdn.com%2Fproduct%2Ffancy%2F2d7c51bb-c95b-4f72-b698-6e74e4dcc528.jpg&spec_gallery_id=4119781572&refer_page_sn=10009&refer_source=0&freesia_scene=2&_oak_freesia_scene=2&_oak_rec_ext_1=Nzc1&_oak_gallery_order=1291141593%2C1421948185%2C36196099%2C207688512%2C1801095390&search_key=plaque%20acrylique%205%20feuilles&refer_page_el_sn=200049&refer_page_name=search_result&refer_page_id=10009_1725356561827_z8u8w4q9l4&_x_sessn_id=tudzg6f4yi)
-- Boite a chaussure à découper / Pièces en bois (Ce que vous voulez, mais c'est pour la structure de la boite)
-- Colle (Servira à assembler les différents composants)
-- Marqueur (Pour pouvoir faire les repères)
-- Raspberry PI (facultatif, servirait à faire tourner le serveur NodeJS)
+- Pyramide de projection: [Pyramide de Projecteur D'Hologramme 3D](https://www.amazon.fr/dp/B0CRL9QKLY?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1)
+<!-- - Pyramide / Ecran de projection: [Lot de 5 feuilles en acrylique transparent (8,26x11,6 pouces, panneau en plastique, épaisseur de 1mm)](https://www.temu.com/fr/lot-de-5-feuilles-en-acrylique-transparent-8-26x11-6-pouces-panneau-en-plastique-pour-le-remplacement--de-cadre-photo-projets-d-exposition-artistique-%C3%A9paisseur-de-1-0-mm-film-anti-rayures-haute-clart%C3%A9-g-601099563734027.html?_oak_mp_inf=EIuo4q%2Bm1ogBGiAxM2JkMjgzZWNlYWQ0YWYwODE5MTdiZjVlMDg5NWQzOSDw7pC6mzI%3D&top_gallery_url=https%3A%2F%2Fimg.kwcdn.com%2Fproduct%2Ffancy%2F2d7c51bb-c95b-4f72-b698-6e74e4dcc528.jpg&spec_gallery_id=4119781572&refer_page_sn=10009&refer_source=0&freesia_scene=2&_oak_freesia_scene=2&_oak_rec_ext_1=Nzc1&_oak_gallery_order=1291141593%2C1421948185%2C36196099%2C207688512%2C1801095390&search_key=plaque%20acrylique%205%20feuilles&refer_page_el_sn=200049&refer_page_name=search_result&refer_page_id=10009_1725356561827_z8u8w4q9l4&_x_sessn_id=tudzg6f4yi) -->
+<!-- - Boite a chaussure à découper / Pièces en bois (Ce que vous voulez, mais c'est pour la structure de la boite) -->
+<!-- - Colle (Servira à assembler les différents composants) -->
+<!-- - Marqueur (Pour pouvoir faire les repères) -->
+<!-- - Raspberry PI (facultatif, servirait à faire tourner le serveur NodeJS) -->
 
 # Interactions avec l'IOT
 (WIP) Le matériel n'ayant pas encore été choisi, je ne peux pour l'instant ni fournir de matériel domotique compatible, ni d'interactions avec via l'assistante. Cependant, je vais pouvoir coder la technologie qui permettra de pouvoir lister les appareils connectés et qui permettra à l'assistante de pouvoir évaluer des appels aux fonctions qui vont pouvoir changer l'état du matériel. Je reviendrais sur ce repository pour préciser le matériel que j'utilise, mais si vous utilisez un matériel différent, vous devrez coder votre propre API pour écraser la mienne.
@@ -67,8 +68,10 @@ Vous pouvez utiliser Termux sur votre appareil (pour moi c'est une tablette 8 po
 [![image](https://github.com/user-attachments/assets/66352146-181b-49d9-83d7-3cb7192aaf2f)](https://youtu.be/iiJn9H-8H1M)<br>
 Cette vidéo vous montrera comment construire l'hologram box
 
-[![image](https://github.com/user-attachments/assets/8cb1b82f-1059-488a-b39c-e6768176357b)](https://www.youtube.com/watch?v=6OjKO_5BcPo)<br>
-Celle ci vous montrera comment construire la pyramide holographique
+<!-- [![image](https://github.com/user-attachments/assets/8cb1b82f-1059-488a-b39c-e6768176357b)](https://www.youtube.com/watch?v=6OjKO_5BcPo)<br> -->
+<!-- Celle ci vous montrera comment construire la pyramide holographique -->
+
+
 
 # TODO
 - *Refactoriser le code en Typescript. (Sera probablement fait à la fin).*
