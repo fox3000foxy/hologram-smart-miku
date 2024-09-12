@@ -33,7 +33,8 @@ L'idée de ce projet est de pouvoir construire pour très peu cher ma propre Ale
 
 Vous pourrez importer un modèle personnalisé pour votre assistante, à condition de changer la source du modèle chargé dans public/main.js.
 
-Le mode pyramide est également disponible. <br>
+Le mode pyramide est également disponible (vidéo): <br>
+[![image](https://github.com/user-attachments/assets/eb9f40ec-8f40-41c7-bec0-538b9ace6788)](https://www.youtube.com/shorts/kM1B0eezats)
 <!-- Cliquez sur cette image pour voir ce que ça donnerait habituellement (cette construction montre juste la projection pyramidale, ce n'est pas la construction du DIY plus bas !):<br> -->
 <!-- [![image](https://github.com/user-attachments/assets/4b326331-a4c9-430d-a41b-711492828e6c)](https://youtu.be/dJruyJ4keqM?t=29)<br> -->
 Il permet, à l'aide d'une pyramide de plexiglass, de pouvoir projeter le modèle sur 4 faces, ce qui permet d'avoir un rendu à 360 degrés équilatéral de notre assistante.<br>
@@ -75,10 +76,10 @@ Cette vidéo vous montrera comment construire l'hologram box
 
 # TODO
 - *Refactoriser le code en Typescript. (Sera probablement fait à la fin).*
-- *Corriger les vidéos des animations du mode pyramide.*
 - *Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.*
-- *Créer un système de cache pour les API précédentes:* <br>
-  - Pour l'IOT: mettre en place un système de routage LAN pour les équipements et appareils connectés._
+- ~~Corriger les vidéos des animations du mode pyramide.~~
+- ~~Créer un système de cache pour les API précédentes:~~ <br>
+  - ~~Pour l'IOT: mettre en place un système de routage LAN pour les équipements et appareils connectés.~~
   - ~~Pour la météo: récupérer les données GPS (facultatif), conserver dans un fichier "cache" la météo heure par heure, et en fonction de l'heure, donner la météo~~
   - ~~Pour les news: garder en cache certaines news, et demander à l'IA de pouvoir en faire des synthèses pour pouvoir garder des news concises~~
   - ~~Pour le reste: récupérer régulièrement les données (toutes les 15 minutes), les stocker dans un fichier cache dédié, et si hors ligne, renvoyer le cache, sinon, renvoyer la donnée récupérée à l'instant T.~~
