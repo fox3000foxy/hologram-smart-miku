@@ -407,7 +407,7 @@ async function interact(text, cbPlay, cbStop, cbError) {
     }
 }
 
-/** Record animations */
+/** Record animations
 
 var blob, deviceRecorder = null;
 var chunks = [];
@@ -483,4 +483,4 @@ setTimeout(()=>{
 	motionToMp4("Idle2")
 },5000)
 
- 
+ */
