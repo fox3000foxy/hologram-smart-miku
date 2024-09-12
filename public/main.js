@@ -152,20 +152,34 @@ let positions = [];
 let rotations = [];
 lyricsElement.style.display = "none";
 if(PYRAMID_MODE) {		
+	// positions = [
+		// { x: -0.05, y: 0.6, z: -5.0 }, // Modèle inversé en Z
+		// { x: -0.05, y: 1.4, z: -5.0 }, // Position centrale
+		// { x: 1.5, y: 1.0, z: -5.0 }, // Modèle à gauche
+		// { x: -1.5, y: 1.0, z: -5.0 }  // Modèle à droite
+	// ];
+
+	// rotations = [
+		// { x: 0.0, y: 0.0, z: Math.PI },        // Rotation centrale
+		// { x: Math.PI, y: Math.PI, z: Math.PI },    // Modèle inversé
+		// { x: Math.PI / 2 , y: 0.0, z: Math.PI / 2 }, // Rotation vers la gauche
+		// { x: Math.PI / 2, y: 0.0, z: Math.PI / 2 + Math.PI } // Rotation vers la droite
+	// ];
 	positions = [
-		{ x: -0.05, y: 0.6, z: -5.0 }, // Modèle inversé en Z
-		{ x: -0.05, y: 1.4, z: -5.0 }, // Position centrale
-		{ x: 1.5, y: 1.0, z: -5.0 }, // Modèle à gauche
-		{ x: -1.5, y: 1.0, z: -5.0 }  // Modèle à droite
+		{ x: 0.0, y: -1.5, z: -6.0 }, // Modèle inversé en Z
+		{ x: 0.0, y: 3.5, z: -6.0 }, // Position centrale
+		{ x: 1.4, y: 1.0, z: -6.0 }, // Modèle à gauche
+		{ x: -1.4, y: 1.0, z: -6.0 }  // Modèle à droite
 	];
 
 	rotations = [
-		{ x: 0.0, y: 0.0, z: Math.PI },        // Rotation centrale
-		{ x: Math.PI, y: Math.PI, z: Math.PI },    // Modèle inversé
-		{ x: Math.PI / 2 , y: 0.0, z: Math.PI / 2 }, // Rotation vers la gauche
-		{ x: Math.PI / 2, y: 0.0, z: Math.PI / 2 + Math.PI } // Rotation vers la droite
+		{ x: 0.0, y: 0.0, z: 0.0 },        // Rotation centrale
+		{ x: Math.PI, y: Math.PI, z: 0},    // Modèle inversé
+		{ x: Math.PI / 2 , y: 0.0, z: -(Math.PI/2)}, // Rotation vers la gauche
+		{ x: Math.PI / 2, y: 0.0, z: Math.PI / 2 } // Rotation vers la droite
 	];
-	
+
+	lyricsElement.style.display = "none";
 }
 else {
 	positions = [
@@ -393,7 +407,7 @@ async function interact(text, cbPlay, cbStop, cbError) {
     }
 }
 
-/** Record animations
+/** Record animations */
 
 var blob, deviceRecorder = null;
 var chunks = [];
@@ -432,6 +446,7 @@ async function startRecording(){
 	deviceRecorder.start(250)
 }
 
+let isStopped = false;
 function stopRecording(filename){
     // var filename = window.prompt("File name", "video"); // Ask the file name
 
@@ -454,15 +469,18 @@ async function motionToMp4(animation) {
 	setTimeout(()=>{		
 		loadFBX(`/animations/${animation}.fbx`, () => {
 		}, () => {
-			setTimeout(()=>{		
-				stopRecording(animation)
+			setTimeout(()=>{
+				if(!isStopped) {
+					stopRecording(animation);
+					isStopped = true;
+				}
 			},500)
 		})
-	},1250)
+	},2250)
 }
 
 setTimeout(()=>{
-	motionToMp4("WavingGesture")
+	motionToMp4("Idle2")
 },5000)
 
- */
+ 
