@@ -1,3 +1,6 @@
+# NOUVEAU ! 
+Une version hébergée est disponible sur https://fox3000foxy.com/hologram-smart-miku/
+
 # Overview
 ![image](https://github.com/user-attachments/assets/79a2b1b9-de90-4a4b-8ba3-572dbcc30823)
 _Hatsune Miku Hologram Version that acts like Alexa_
