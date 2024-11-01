@@ -7,7 +7,7 @@ const { Hercai } = require('hercai');
 const SearchEngine = require('cdrake-se');
 const https = require('https');
 
-process.env = {...process.env, ...require('dotenv').config().parsed}
+process.env = {...process.env, ...require('dotenv').config().parsed} 
 
 // Constants
 const PORT = 3000;
