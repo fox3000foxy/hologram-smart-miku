@@ -13,7 +13,7 @@ document.getElementById(`IdleVideo`).src = `./video/Idle2${PYRAMID_MODE?"Pyramid
 document.getElementById(`lyrics`).style.display = PYRAMID_MODE ? "none" : ""
 
 // Constantes pour les conditions
-const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku", "bonjour mikou", "bonjour miku", "bonjour micou"];
+const WAKEUP_PHRASES = ["hey miku", "hey micou", "hey mikou", "et miku", "bonjour mikou", "bonjour miku", "bonjour micou", "hallo miku"];
 const GOODBYE_PHRASES = ["au revoir miku", "au revoir micou", "au revoir mikou", "au revoir nico"];
 
 // Éléments DOM
@@ -224,7 +224,7 @@ async function interact(text, cbPlay, cbStop, cbError) {
 					let utterance = new SpeechSynthesisUtterance(response.message.reply);
 					// let synthesis = synthesis
 					console.log(speechSynthesis)
-					speechSynthesis.lang = "fr-FR";
+					speechSynthesis.lang = navigator.language;
 					utterance.rate = 1.4;
 					speechSynthesis.speak(utterance);
 				}
