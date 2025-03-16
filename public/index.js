@@ -7,9 +7,15 @@ document.body.style.backgroundColor = "black";
 
 let currentVrm, currentAnimationUrl, currentMixer, currentAnimation;
 const PYRAMID_MODE = false;
+<<<<<<< Updated upstream
 document.getElementById(`TalkingVideo`).src = `/video/Talking${PYRAMID_MODE?"Pyramid":""}.mp4`;
 document.getElementById(`WavingVideo`).src = `/video/Waving${PYRAMID_MODE?"Pyramid":""}.mp4`;
 document.getElementById(`IdleVideo`).src = `/video/Idle2${PYRAMID_MODE?"Pyramid":""}.mp4`;
+=======
+document.getElementById(`TalkingVideo`).src = `video/Talking${PYRAMID_MODE?"Pyramid":""}.mp4`;
+document.getElementById(`WavingVideo`).src = `video/Waving${PYRAMID_MODE?"Pyramid":""}.mp4`;
+document.getElementById(`IdleVideo`).src = `video/Idle2${PYRAMID_MODE?"Pyramid":""}.mp4`;
+>>>>>>> Stashed changes
 document.getElementById(`lyrics`).style.display = PYRAMID_MODE ? "none" : ""
 
 // Constantes pour les conditions
@@ -76,7 +82,7 @@ wakeupRecognizer.onerror = function(event) {
 // Fonction pour jouer un son de réveil et démarrer la reconnaissance globale
 async function wakeMiku() {
 	let id = Math.floor(Math.random() * 4) + 1;
-	let {response} = await fetch(`/wakeupText?id=${id}`).then(res=>res.json());
+	let {response} = await fetch(`wakeupText?id=${id}`).then(res=>res.json());
     lyricsElement.innerHTML = `<i>${response.translation} (Réveil...)</i>`;
     await playAudio(`wakeup${id}`, () => {}, startGlobalRecognition);
 }
@@ -149,7 +155,7 @@ function playAnimation(name) {
 }
 
 async function askAI(question) {
-    const response = await fetch("/mikuAi", {
+    const response = await fetch("mikuAi", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: question }),
@@ -158,7 +164,7 @@ async function askAI(question) {
 }
 
 async function askAIOffline(question) {
-    const response = await fetch("/mikuAi-offline", {
+    const response = await fetch("mikuAi-offline", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: question }),
@@ -169,7 +175,7 @@ async function askAIOffline(question) {
 async function playAudio(name, cbPlay, cbStop) {
     const audio = new Audio();
     try {
-        audio.src = `/audio/${name}.wav`;
+        audio.src = `audio/${name}.wav`;
         audio.onplay = cbPlay;
         audio.onended = cbStop;
 		audio.volume = 0.3;
@@ -202,7 +208,7 @@ async function interact(text, cbPlay, cbStop, cbError) {
     text = text.replace("Nico", "Miku");
     lyricsElement.innerHTML = "<i>Réfléchit...</i>";
     
-    const { isOnline } = await fetch('/isOnline').then(res => res.json());
+    const { isOnline } = await fetch('isOnline').then(res => res.json());
     let response;
 
     if (isOnline) {

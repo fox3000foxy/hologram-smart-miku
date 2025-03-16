@@ -383,12 +383,12 @@ async function getNews(Query) {
 /** Get caches */
 // Weather cache
 function getMeteoCache() {
-    return JSON.parse(fs.readFileSync(__dirname+"/cache/weather.json").toString());
+    return JSON.parse(fs.readFileSync("./cache/weather.json").toString());
 }
 
 // News cache
 function getNewsCache() {
-    return JSON.parse(fs.readFileSync(__dirname+"/cache/news.json").toString());
+    return JSON.parse(fs.readFileSync("./cache/news.json").toString());
 }
 
 /** Get caches specific values */
@@ -402,13 +402,13 @@ function getTemperature(date) {
 //Weather cache
 async function weatherDaemon() {
     let data = await getMeteo(process.env.LATITUDE, process.env.LONGITUDE)
-    fs.writeFileSync(__dirname+"/cache/weather.json", JSON.stringify(data, 0, 2));
+    fs.writeFileSync("./cache/weather.json", JSON.stringify(data, 0, 2));
 }
 
 //News cache
 async function newsDaemon() {
     let data = await getNews(process.env.NEWS_PREFERENCES)
-    fs.writeFileSync(__dirname+"/cache/news.json", JSON.stringify(data, 0, 2));
+    fs.writeFileSync("./cache/news.json", JSON.stringify(data, 0, 2));
 }
 
 //Daemons every hour

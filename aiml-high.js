@@ -28,7 +28,7 @@ var aimlHigh = function(botAttributesParam, lastAnswer){
     this.loadFiles = function(files){
 		loadedFiles = [...loadedFiles,...files]
         for (file of files) {
-			const data = fs.readFileSync(file).toString()
+			const data = fs.readFileSync(__dirname+"/"+file).toString()
 			self.loadFromString(data)
 			// console.log("Loaded", file)
 		}
