@@ -18,7 +18,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "googlethis": "^1.8.0",
-    "hercai": "^12.3.2",
+    "hercai": "^13.0.0",
     "xmldom": "^0.6.0"
   }
 }
