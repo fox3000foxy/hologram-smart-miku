@@ -1,6 +1,6 @@
 DOMParser = require('xmldom').DOMParser;
 fs = require('fs');
-
+path = require('path');
 var storedVariableValues = {};
 var botAttributes = {};
 
@@ -28,7 +28,7 @@ var aimlHigh = function(botAttributesParam, lastAnswer){
     this.loadFiles = function(files){
 		loadedFiles = [...loadedFiles,...files]
         for (file of files) {
-			const data = fs.readFileSync(__dirname+"/"+file).toString()
+			const data = fs.readFileSync(path.join(__dirname,file)).toString()
 			self.loadFromString(data)
 			// console.log("Loaded", file)
 		}
