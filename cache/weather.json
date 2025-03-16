@@ -1,4 +1,4 @@
 {
-  "reason": "Data corrupted at path ''. Cannot initialize Float from invalid String value undefined.",
-  "error": true
+  "error": true,
+  "reason": "Data corrupted at path ''. Cannot initialize Float from invalid String value undefined."
 }

@@ -7,15 +7,9 @@ document.body.style.backgroundColor = "black";
 
 let currentVrm, currentAnimationUrl, currentMixer, currentAnimation;
 const PYRAMID_MODE = false;
-<<<<<<< Updated upstream
-document.getElementById(`TalkingVideo`).src = `/video/Talking${PYRAMID_MODE?"Pyramid":""}.mp4`;
-document.getElementById(`WavingVideo`).src = `/video/Waving${PYRAMID_MODE?"Pyramid":""}.mp4`;
-document.getElementById(`IdleVideo`).src = `/video/Idle2${PYRAMID_MODE?"Pyramid":""}.mp4`;
-=======
-document.getElementById(`TalkingVideo`).src = `video/Talking${PYRAMID_MODE?"Pyramid":""}.mp4`;
-document.getElementById(`WavingVideo`).src = `video/Waving${PYRAMID_MODE?"Pyramid":""}.mp4`;
-document.getElementById(`IdleVideo`).src = `video/Idle2${PYRAMID_MODE?"Pyramid":""}.mp4`;
->>>>>>> Stashed changes
+document.getElementById(`TalkingVideo`).src = `./video/Talking${PYRAMID_MODE?"Pyramid":""}.mp4`;
+document.getElementById(`WavingVideo`).src = `./video/Waving${PYRAMID_MODE?"Pyramid":""}.mp4`;
+document.getElementById(`IdleVideo`).src = `./video/Idle2${PYRAMID_MODE?"Pyramid":""}.mp4`;
 document.getElementById(`lyrics`).style.display = PYRAMID_MODE ? "none" : ""
 
 // Constantes pour les conditions

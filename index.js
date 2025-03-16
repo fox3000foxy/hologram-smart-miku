@@ -3,13 +3,14 @@ const bodyParser = require("body-parser");
 const {
     Readable
 } = require("stream");
-const aimlHigh = require('./aiml-high');
+const aimlHigh = require(__dirname+'/aiml-high');
 const fs = require('fs');
 const {
     Hercai
 } = require('hercai');
 const SearchEngine = require('cdrake-se');
 const https = require('https');
+const path = require('path');
 
 process.env = {
     ...process.env,
@@ -21,7 +22,7 @@ process.env = {
 const PORT = 3000;
 const PUBLIC_DIR = __dirname + '/public';
 const INDEX_FILE = `${PUBLIC_DIR}/index.html`;
-const DATA_DIR = './data';
+const DATA_DIR = path.join(__dirname,'./data');
 const AIML_RESPONSE_LIMIT = 7;
 const HERC_API_KEY = process.env.HERC_API_KEY; // Replace with your actual API key
 
@@ -436,9 +437,3 @@ process.on('unhandledRejection', (error, promise) => {
     console.log(' The error was: ', error);
 });
 // This is just a sample script. Paste your real code (javascript or HTML) here.
-
-if ('this_is' == /an_example/) {
-    of_beautifier();
-} else {
-    var a = b ? (c % d) : e[f];
-}
