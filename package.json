@@ -2,10 +2,12 @@
   "name": "vroid-hologram-assistant",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx concurrently \"node .\" \"vv-engine\\run\""
+    "build": "tsc",
+    "start:ts": "npm run build && node dist/index.js",
+    "start": "npx concurrently \"npm run start:ts\" \"vv-engine\\run\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,14 @@
     "express": "^4.19.2",
     "googlethis": "^1.8.0",
     "hercai": "^13.0.0",
-    "xmldom": "^0.6.0"
+    "xmldom": "^0.6.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "@types/node": "^20.7.3",
+    "@types/express": "^4.17.21",
+    "@types/body-parser": "^1.19.3",
+    "@types/cors": "^2.8.14"
   }
 }

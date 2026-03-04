@@ -78,7 +78,7 @@ Cette vidéo vous montrera comment construire l'hologram box
 
 
 # TODO
-- *Refactoriser le code en Typescript. (Sera probablement fait à la fin).*
+- ~~Refactoriser le code en Typescript. (Sera probablement fait à la fin).~~
 - *Coder le moteur et l'API qui permettra d'intéragir avec de la domotique.*
 - ~~Corriger les vidéos des animations du mode pyramide.~~
 - ~~Créer un système de cache pour les API précédentes:~~ <br>
