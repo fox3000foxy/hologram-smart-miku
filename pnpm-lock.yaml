@@ -30,8 +30,8 @@ dependencies:
     specifier: ^0.37.0
     version: 0.37.0
   hercai:
-    specifier: ^13.0.0
-    version: 13.0.0
+    specifier: ^14.0.3
+    version: 14.0.3
   node-fetch:
     specifier: ^3.3.2
     version: 3.3.2
@@ -840,8 +840,8 @@ packages:
       function-bind: 1.1.2
     dev: false
 
-  /hercai@13.0.0:
-    resolution: {integrity: sha512-7ZSbJydtniRVK8d57/+puqf6Ys0DaRDBfXQ2MHDZKjrq4uLC2PtEAMmTdBTO7jmzDpaiPKmzV28UKAeGteeJXA==}
+  /hercai@14.0.3:
+    resolution: {integrity: sha512-BPLA6qjgfIMi8nn4hP8w4thaVTMmML3rR8fZqq0m/0p5/cx4vFdtsVmH0bLsmQuix2oU3h24ACuOJwJFKf2I2A==}
     dependencies:
       nyro: 2.0.4
     transitivePeerDependencies:
