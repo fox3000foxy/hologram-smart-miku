@@ -1,3 +1,4 @@
+import dns from 'dns';
 import express, { Request, Response } from 'express';
 import { Groq } from 'groq-sdk';
 import { getAIMLResponse, getBullshit } from './aiml';
@@ -7,12 +8,6 @@ import { wakeupResponses } from './data';
 import { generatePrompt } from './handlers';
 import { format7DayForecast, formatSearchResults, switchLights } from './utils';
 
-// typed bodies
-interface TextRequest {
-  content?: string;
-}
-
-
 const groq = new Groq({ apiKey: GROQ_API_KEY });
 export function registerRoutes(app: express.Application) {
   app.get('/', (req, res) => {
@@ -20,7 +15,7 @@ export function registerRoutes(app: express.Application) {
     res.sendFile(INDEX_FILE);
   });
 
-  app.post('/mikuAi', async (req: Request<{}, {}, TextRequest>, res: Response) => {
+  app.post('/mikuAi', async (req: Request, res: Response) => {
     const content = req.body.content;
     if (!content) {
       return res.json({
@@ -32,13 +27,21 @@ export function registerRoutes(app: express.Application) {
     const prompt = generatePrompt(content);
 
     try {
-      const groqRes: any = await groq.chat.completions.create({
+      const groqRes = await groq.chat.completions.create({
         model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: prompt },
           { role: 'user', content },
         ],
       });
+
+      if (!groqRes.choices || groqRes.choices.length === 0) {
+        return res.status(500).json({ success: false, message: 'No response from Groq' });
+      }
+
+      if(!groqRes.choices[0].message || !groqRes.choices[0].message.content) {
+        return res.status(500).json({ success: false, message: 'Invalid response format from Groq' });
+      }
 
       const reply: string = groqRes.choices[0].message.content;
       const cleanedReply = reply.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
@@ -58,7 +61,7 @@ export function registerRoutes(app: express.Application) {
     }
   });
 
-  app.post('/mikuAi-offline', (req: Request<{}, {}, TextRequest>, res: Response) => {
+  app.post('/mikuAi-offline', (req: Request, res: Response) => {
     const content = req.body.content;
     if (!content) {
       return res.json({
@@ -67,7 +70,7 @@ export function registerRoutes(app: express.Application) {
       });
     }
 
-    let response: any;
+    let response: {reply: string; hiragana_form?: string; id?: number; type?: string} | string;
 
     if (content === 'météo') {
       response = {
@@ -95,7 +98,7 @@ export function registerRoutes(app: express.Application) {
 
 
   app.get('/isOnline', (req, res) => {
-    require('dns').resolve('www.google.com', (err: NodeJS.ErrnoException | null) => {
+    dns.resolve('www.google.com', (err: NodeJS.ErrnoException | null) => {
       res.send({ isOnline: !err });
     });
   });

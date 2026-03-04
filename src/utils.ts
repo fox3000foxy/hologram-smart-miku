@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import fs from 'fs';
 import { NewsResult, WeatherData } from './types';
 
@@ -27,7 +28,6 @@ export function formatSearchResults(searchResults: NewsResult[]): string {
 }
 
 export function getClosestTemperature(date: Date, weatherData: WeatherData): number {
-  const targetTime = date.toISOString(); // unused but kept for clarity
   let closestIndex = 0;
   let closestDifference =
     Math.abs(new Date(weatherData.hourly.time[0]).getTime() - date.getTime());

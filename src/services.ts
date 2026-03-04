@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error - module has no types
 import SearchEngine from 'cdrake-se';
 import { NewsResult, WeatherData } from './types';
 import { sortByRecent } from './utils';
