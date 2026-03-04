@@ -1,1 +1,1 @@
-declare module '../lib/aiml-high';
+declare module "../lib/aiml-high";
