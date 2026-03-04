@@ -1,6 +1,5 @@
 // @ts-ignore
 import SearchEngine from 'cdrake-se';
-import fetch from 'node-fetch';
 import { NewsResult, WeatherData } from './types';
 import { sortByRecent } from './utils';
 

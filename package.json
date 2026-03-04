@@ -8,7 +8,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "pnpm run build && node dist/index.js",
-    "dev": "npx ts-node-dev src/index.ts"
+    "dev": "npx ts-node-dev src/index.ts",
+    "lint": "npx eslint src --ext .ts",
+    "lint:fix": "npx eslint src --ext .ts --fix",
+    "format": "npx prettier --write src",
+    "format:check": "npx prettier --check src"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +35,12 @@
     "@types/cors": "^2.8.14",
     "@types/express": "^4.17.21",
     "@types/node": "^20.7.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.2",
+    "eslint-plugin-security": "^4.0.0",
+    "globals": "^17.4.0",
+    "prettier": "^3.8.1",
+    "typescript-eslint": "^8.56.1"
   }
 }
