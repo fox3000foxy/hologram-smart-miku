@@ -16,7 +16,7 @@
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "^5.2.1",
     "googlethis": "^1.8.0",
     "hercai": "^13.0.0",
     "xmldom": "^0.6.0"
