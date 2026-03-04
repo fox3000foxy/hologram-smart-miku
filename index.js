@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const {
     Readable
 } = require("stream");
-const aimlHigh = require('./aiml-high');
+const aimlHigh = require('./lib/aiml-high');
 const fs = require('fs');
 const {
     Hercai
@@ -41,7 +41,7 @@ const datasets = require(DATASETS_PATH);
 
 const app = express();
 const herc = new Hercai({
-    apiKey: ""
+    apiKey: HERC_API_KEY
 }); // Initialize Hercai with API key
 // console.log("Loaded data", herc);
 const interpreter = new aimlHigh(botProperties, 'Goodbye');
