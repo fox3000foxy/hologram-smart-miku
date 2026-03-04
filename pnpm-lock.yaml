@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   body-parser:
-    specifier: ^1.20.4
-    version: 1.20.4
+    specifier: ^2.2.2
+    version: 2.2.2
   cdrake-se:
     specifier: ^1.1.2
     version: 1.1.2
@@ -1526,6 +1526,10 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
+  /merge-descriptors@1.0.3:
+    resolution: {integrity: sha512-gaNvAS7TZ897/rVaZ0nMtAyxNyi/pdbjbAwUpFQpN70GqnVfOiXpeUUMKRBmzXaSQ8DdTX4/0ms62r2K+hE6mQ==}
+    dev: false
+
   /merge-descriptors@2.0.0:
     resolution: {integrity: sha512-Snk314V5ayFLhp3fkUREub6WtjBfPdCPY1Ln8/8munuLuiYhsABgBVWsozAG+MWMbVEvcdcpbi9R7ww22l9Q3g==}
     engines: {node: '>=18'}
@@ -1553,6 +1557,12 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       mime-db: 1.54.0
+    dev: false
+
+  /mime@1.6.0:
+    resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
+    engines: {node: '>=4'}
+    hasBin: true
     dev: false
 
   /minimatch@10.2.4:
