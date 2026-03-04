@@ -1,3 +1,6 @@
+# NEW!
+A hosted version is available at https://fox3000foxy.com/hologram-smart-miku/
+
 # Overview
 
 ![image](https://github.com/user-attachments/assets/79a2b1b9-de90-4a4b-8ba3-572dbcc30823)
@@ -72,23 +75,22 @@ I'll return to this repository to specify the equipment I use; if you use differ
 [![image](https://github.com/user-attachments/assets/66352146-181b-49d9-83d7-3cb7192aaf2f)](https://youtu.be/iiJn9H-8H1M)  
 This video shows you how to build the hologram box.
 
+# Development
+
+This project uses **pnpm** for package management. Common commands:
+
+```bash
+pnpm install          # install dependencies
+pnpm run build        # compile TypeScript to dist/
+pnpm run start        # start server + vv-engine
+```
+
+You can also run the compiled app directly with `pnpm run start:ts`.
+
 # TODO
 
 - ~Refactor the code into TypeScript (now done).~
 - *Implement the engine and API for interacting with home automation.*
-- ~~Fix pyramid mode animation videos.~~
-- ~~Create a caching system for the previous APIs:~~  
-  - ~~For IoT: setup LAN routing for connected equipment.~~  
-  - ~~For weather: optionally fetch GPS, store hourly weather in a cache file, and use it when offline.~~  
-  - ~~For news: keep some stories cached and ask the AI to summarize them.~~  
-  - ~~General: periodically fetch data (every 15 minutes), store in a dedicated cache file, return cached data when offline.~~
-- ~~Look into translations of wake‑up phrases instead of “Réveil...”.~~
-- ~~Refactor code with standards and replace hard‑coded strings with constants.~~
-- ~~Force persistent continuous voice recognition.~~
-- ~~Prepare APIs like “weather”, “news”, “iot”, etc.~~  
-- ~~Add weather and news in offline mode and code the AI to provide these.~~
-- ~~Add a French dub for pyramid mode.~~
-- ~~Make subtitles responsive (they’re too big on small screens).~~
 
 # License
 

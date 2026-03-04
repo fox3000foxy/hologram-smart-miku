@@ -1,8 +1,7 @@
+import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { loadMixamoAnimation } from './loadMixamoAnimation.js';
-import GUI from 'three/addons/libs/lil-gui.module.min.js';
 
 const PYRAMID_MODE = true;
 
@@ -309,29 +308,6 @@ async function askAIOffline(question) {
         body: JSON.stringify({ content: question }),
     });
     return response.json();
-}
-
-/** Deprecated: inexisting endpoint */
-async function synthesis(text, cbPlay, cbStop) {
-    const audio = new Audio();
-    try {
-        const arrayBuffer = await fetch("voicevox", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text }),
-        }).then((data) => data.arrayBuffer());
-
-        const blob = new Blob([arrayBuffer], { type: "audio/wav" });
-        audio.src = URL.createObjectURL(blob);
-        audio.onplay = cbPlay;
-        audio.onended = cbStop;
-        audio.play();
-
-        return true;
-    } catch (error) {
-        console.error(`Error fetching or playing audio: ${error}`);
-        return false;
-    }
 }
 
 async function playAudio(name, cbPlay, cbStop) {

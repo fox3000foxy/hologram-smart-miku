@@ -1,2 +1,0 @@
-document.body.style.backgroundColor = "black";
-document.getElementById("video").playbackRate = 1.1
