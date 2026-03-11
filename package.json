@@ -22,7 +22,7 @@
     "cdrake-se": "^1.1.2",
     "concurrently": "^9.2.1",
     "cors": "^2.8.6",
-    "dotenv": "^16.6.1",
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "googlethis": "^1.8.0",
     "groq-sdk": "^0.37.0",
